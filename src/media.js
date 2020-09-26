@@ -14,7 +14,6 @@ function MediaWrapper(window) {
   let buf;
   let vidId;
   let randomTime;
-  let cthis;
   let luid;
   let allAudioSend = [];
   let audioLen = 0;
@@ -23,6 +22,12 @@ function MediaWrapper(window) {
   let workerAudioRecOnmessage = false;
   let l;
   let snNodePak;
+  let cthis;
+  if (virtualclass.adpt == null) {
+    virtualclass.adpt = new virtualclass.adapter();
+  }
+
+  if (!this.cNavigator) this.cNavigator = virtualclass.adpt.init(navigator);
 
   function breakintobytes(val, l) {
     let numstring = val.toString();
@@ -55,7 +60,6 @@ function MediaWrapper(window) {
    */
   function Media() {
     return {
-      isChannelReady: '', // not being used
       isStarted: '',
       pc: [],
       cn: 0,
@@ -75,8 +79,7 @@ function MediaWrapper(window) {
 
       audioPlayerNode: null,
       audioCreatorNode: null,
-
-
+      status: 0, // 0 = No webCam, 1 = Webcam Success, 2 = Webcam error
       /**
        * Replaces image with  video
        * @param id Id of the user
@@ -170,7 +173,7 @@ function MediaWrapper(window) {
          *  Enables audio
          *  calls function to attach functions on audio tools.
          */
-        init() {
+        init(stream) {
           const isEnableAudio = document.getElementById('speakerPressOnce').dataset.audioPlaying;
           virtualclass.gObj.audMouseDown = (isEnableAudio === 'true');
 
@@ -200,6 +203,7 @@ function MediaWrapper(window) {
             },
           };
           this.attachFunctionsToAudioWidget(); // to attach functions to audio widget
+          this.attachAudioStopHandler(stream);
         },
 
         initAudiocontext() {
@@ -1145,7 +1149,7 @@ function MediaWrapper(window) {
         myVideo: '',
         remoteVid: '',
         remoteVidCont: '',
-        maxHeight: 250,
+        // maxHeight: 250,
         // Setting the video container's max height
         init() {
           this.videoCont = document.getElementById('allVideosCont');
@@ -1329,40 +1333,41 @@ function MediaWrapper(window) {
 
 
         // TODO this function is not being used
-        justForDemo() {
-          const maxHeight = 250;
-          let num = 0;
-          let videoCont = document.getElementById('allVideosCont');
-          videoCont.style.maxHeight = `${maxHeight}px`;
+        // justForDemo() {
+        //   const maxHeight = 250;
+        //   let num = 0;
+        //   let videoCont = document.getElementById('allVideosCont');
+        //   videoCont.style.maxHeight = `${maxHeight}px`;
 
-          setInterval(
-            () => {
-              if (++num <= 20) {
-                videoCont = document.getElementById('allVideosCont');
-                const videoWrapper = document.createElement('div');
-                videoWrapper.className = 'videoWrapper';
-                //                                        videoWrapper.setAttribute("data-uname", "suman" + num);
-                const videoSubWrapper = document.createElement('div');
-                videoSubWrapper.className = 'videoSubWrapper';
-                videoSubWrapper.setAttribute('data-uname', +num);
-                videoWrapper.appendChild(videoSubWrapper);
-                const video = document.createElement('video');
-                video.className = 'userVideo';
-                video.muted = 'muted';
-                video.src = 'http://html5demos.com/assets/dizzy.mp4';
-                videoSubWrapper.appendChild(video);
-                videoCont.appendChild(videoWrapper);
-                if (videoCont.offsetHeight >= maxHeight) {
-                  if (videoCont.style.overflowY != null && videoCont.style.overflowY !== 'scroll') {
-                    videoCont.style.overflowY = 'scroll';
-                    document.getElementById(virtualclass.gObj.chat.mainChatBoxId).style.borderTop = '3px solid #bbb';
-                  }
-                }
-              }
-            },
-            200,
-          );
-        },
+        //   setInterval(
+        //     () => {
+        //       if (++num <= 20) {
+        //         videoCont = document.getElementById('allVideosCont');
+        //         const videoWrapper = document.createElement('div');
+        //         videoWrapper.className = 'videoWrapper';
+        //         //                                        videoWrapper.setAttribute("data-uname", "suman" + num);
+        //         const videoSubWrapper = document.createElement('div');
+        //         videoSubWrapper.className = 'videoSubWrapper';
+        //         videoSubWrapper.setAttribute('data-uname', +num);
+        //         videoWrapper.appendChild(videoSubWrapper);
+        //         const video = document.createElement('video');
+        //         video.className = 'userVideo';
+        //         video.muted = 'muted';
+        //         video.src = 'http://html5demos.com/assets/dizzy.mp4';
+        //         videoSubWrapper.appendChild(video);
+        //         videoCont.appendChild(videoWrapper);
+        //         if (videoCont.offsetHeight >= maxHeight) {
+        //           if (videoCont.style.overflowY != null && videoCont.style.overflowY !== 'scroll') {
+        //             videoCont.style.overflowY = 'scroll';
+        //             document.getElementById(virtualclass.gObj.chat.mainChatBoxId).style.borderTop = '3px solid #bbb';
+        //           }
+        //         }
+        //       }
+        //     },
+        //     200,
+        //   );
+        // },
+        
         /**
          * Creates video element
          * @returns video element
@@ -1474,12 +1479,6 @@ function MediaWrapper(window) {
         return [webcam, session];
       },
 
-      /**
-       * It creates a mediator for getUSerMedia
-       * and it prompts the user for permission to use video or audio device
-       * it  inalizes the video
-       */
-      /* TODO @param vbool :no use of parameter vbool */
       async init() {
         // console.log('Video second, normal video');
         cthis = this; // TODO there should be done work for cthis
@@ -1489,31 +1488,139 @@ function MediaWrapper(window) {
           delete virtualclass.gesture.classJoin;
         }
 
-        const [webcam, session] = this.sessionConstraints();
+        this.startMedia();
+      },
 
-        this.video.init();
+      stopMediaTracks() {
+        if (virtualclass.media.video.tempStream != null) {
+          const tracks = virtualclass.media.video.tempStream.getTracks(); // if only one media track
+          tracks.foreach((track) => { track.stop(); });
+        }
+      },
+
+      async startMedia() {
+        this.status = 0;
+        const [webcam, session] = this.sessionConstraints();
+        // this.video.init();
+        // virtualclass.user.control.audioDisable();
+        // virtualclass.user.control.videoDisable();
+
+        if (!virtualclass.vutil.isPlayMode()) {
+          if (!virtualclass.adpt) virtualclass.adpt = new virtualclass.adapter();
+          this.stopMediaTracks();
+          if (!this.cNavigator) this.cNavigator = virtualclass.adpt.init(navigator);
+          let stream = null;
+          try {
+            stream = await this.cNavigator.mediaDevices.getUserMedia(session);
+            this.status = 1;
+            this.handleUserMedia(stream);
+            this.handleUserMediaUISuccess();
+          } catch (e) {
+            this.status = 2;
+            this.handleUserMediaError(e);
+            this.audio.notifiyMuteAudio();
+          }
+        }
+
+        // this.handleUserMediaUI();
+
+        if (!this.status) {
+          virtualclass.user.control.videoDisable();
+          virtualclass.vutil.addClass('virtualclassCont', 'nowebcam');
+        }
+      },
+
+      // handleUserMediaUI() {
+      //   if (!this.status) {
+      //     virtualclass.user.control.videoDisable();
+      //     virtualclass.vutil.addClass('virtualclassCont', 'nowebcam');
+      //   } else if (this.status === 1) {
+      //     this.handleUserMediaUISuccess();
+      //   } else {
+      //     this.handleUserMediaError(this.mediaEvent);
+      //     this.audio.notifiyMuteAudio();
+      //   }
+      // },
+
+      handleUserMediaUISuccess() {
+        const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
+        if (userDiv != null) {
+          const vidTag = userDiv.getElementsByTagName('video');
+          if (vidTag != null) cthis.innerHandleUserMedia(); // TODO, the function name should be chagned// really using ?????
+        }
+
+        if (virtualclass.system.mediaDevices.hasMicrophone) {
+          if (roles.isStudent()) virtualclass.settings.userAudioIcon();
+          else if (typeof stream !== 'undefined') virtualclass.user.control.audioWidgetEnable(true);
+        } else {
+          virtualclass.user.control.audioDisable();
+        }
+
+        virtualclass.settings.userVideoIcon();
+
+
+        // if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
+        //   virtualclass.settings.userAudioIcon();
+        // } else if (virtualclass.system.mediaDevices.hasMicrophone) {
+        //   if (typeof stream !== 'undefined') {
+        //     virtualclass.user.control.audioWidgetEnable(true);
+        //   }
+        // } else {
+        //   virtualclass.user.control.audioDisable();
+        // }
+
+        // const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
+        // if (userDiv != null) {
+        //   const vidTag = userDiv.getElementsByTagName('video');
+        //   if (vidTag != null) cthis.innerHandleUserMedia(); // TODO, the function name should be chagned
+        // }
+
+        // UI
+        // virtualclass.settings.userVideoIcon();
+
+        /**
+         * Disable teacher video by default, when he/she will join first time
+         */
+
+        // UI
+        if (localStorage.getItem('prevApp') == null) {
+          if (roles.hasControls()) {
+            // true is passed, because, we don't want to pass video control on precheck
+            virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
+          } else if (virtualclass.gObj.meetingMode) {
+            virtualclass.vutil.videoHandler('off');
+          }
+        }
+      },
+
+      /**
+       * It creates a mediator for getUSerMedia
+       * and it prompts the user for permission to use video or audio device
+       * it  inalizes the video
+       */
+      async initNew() {
+        // console.log('Video second, normal video');
+        cthis = this; // TODO there should be done work for cthis: that shoudl be in top
+
+        if (virtualclass.gesture.classJoin) {
+          virtualclass.gesture.attachHandler();
+          delete virtualclass.gesture.classJoin;
+        }
+
+        const [webcam, session] = this.sessionConstraints();
+        // this.video.init();
+
         virtualclass.user.control.audioDisable();
         virtualclass.user.control.videoDisable();
 
-        if (!virtualclass.vutil.isPlayMode()) {
-          if (virtualclass.adpt == null) {
-            virtualclass.adpt = new virtualclass.adapter();
+        if (!virtualclass.vutil.isPlayMode() && virtualclass.media.video.tempStream != null) {
+          const tracks = virtualclass.media.video.tempStream.getTracks(); // if only one media track
+          for (let i = 0; i < tracks.length; i++) {
+            tracks[i].stop();
           }
-
-          if (virtualclass.media.video.tempStream != null) {
-            // var tracks = virtualclass.media.video.tempStream.getTracks()[0];  // if only one media track
-            // track.stop();
-            const tracks = virtualclass.media.video.tempStream.getTracks(); // if only one media track
-            for (let i = 0; i < tracks.length; i++) {
-              tracks[i].stop();
-            }
-          }
-
-
-          const cNavigator = virtualclass.adpt.init(navigator);
           let stream = null;
           try {
-            stream = await cNavigator.mediaDevices.getUserMedia(session);
+            stream = await cthis.cNavigator.mediaDevices.getUserMedia(session);
           } catch (e) {
             this.handleUserMediaError(e);
             this.audio.notifiyMuteAudio();
@@ -1535,86 +1642,141 @@ function MediaWrapper(window) {
        * @param stream object
        */
 
+      // handleUserMediaOld(stream) {
+      //   if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
+      //     virtualclass.settings.userAudioIcon();
+      //   } else if (virtualclass.system.mediaDevices.hasMicrophone) {
+      //     if (typeof stream !== 'undefined') {
+      //       virtualclass.user.control.audioWidgetEnable(true);
+      //     }
+      //   } else {
+      //     virtualclass.user.control.audioDisable();
+      //   }
+
+      //   const mediaStreamTrack = stream.getVideoTracks()[0];
+      //   if (typeof mediaStreamTrack !== 'undefined') {
+      //     mediaStreamTrack.onended = () => { // for Chrome.
+      //       if (roles.hasControls()) {
+      //         virtualclass.videoHost.clearTeacherVideoTime();
+      //         virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
+      //         const videoHostContainer = document.getElementById('videoHostContainer');
+      //         if (videoHostContainer !== null) {
+      //           videoHostContainer.classList.add('displayInterrupt');
+      //         }
+      //         ioAdapter.mustSend({ cf: 'videoStop' });
+      //       }
+      //     };
+      //   } else {
+      //     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
+      //   }
+
+      //   // stream audio
+      //   cthis.video.tempStream = stream;
+      //   cthis.audio.init();
+      //   cthis.audio.attachAudioStopHandler(stream);
+
+      //   const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
+      //   if (userDiv != null) {
+      //     const vidTag = userDiv.getElementsByTagName('video');
+      //     if (vidTag != null) {
+      //       cthis.innerHandleUserMedia(virtualclass.gObj.uid);
+      //     }
+      //   }
+
+      //   // STREAM
+      //   if (roles.hasAdmin()) {
+      //     virtualclass.videoHost.isDomReady(() => {
+      //       virtualclass.videoHost.renderSelfVideo(stream); // Teacher video
+      //     });
+      //   }
+
+      //   // UI
+      //   virtualclass.settings.userVideoIcon();
+
+      //   /**
+      //    * Disable teacher video by default, when he/she will join first time
+      //    */
+
+      //   // UI
+      //   if (localStorage.getItem('prevApp') == null) {
+      //     if (roles.hasControls()) {
+      //       // true is passed, because, we don't want to pass video control on precheck
+      //       virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
+      //     } else if (virtualclass.gObj.meetingMode) {
+      //       virtualclass.vutil.videoHandler('off');
+      //     }
+      //   }
+
+      //   // STREAM
+      //   if (cthis.audio.audioContextReady
+      //     && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
+      //     cthis.stream = cthis.video.tempStream;
+      //     cthis.audio.actualManiPulateStream();
+      //   }
+      // },
+
+      // for Chrome.
+      triggerVideoEnd() {
+        if (roles.hasControls()) {
+          virtualclass.videoHost.clearTeacherVideoTime();
+          virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
+          const videoHostContainer = document.getElementById('videoHostContainer');
+          if (videoHostContainer !== null) {
+            videoHostContainer.classList.add('displayInterrupt');
+          }
+          ioAdapter.mustSend({ cf: 'videoStop' });
+        }
+      },
+
       handleUserMedia(stream) {
-        localStorage.removeItem('dvid');
-        let audio = localStorage.getItem('audEnable');
-        if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
-          virtualclass.settings.userAudioIcon();
-        } else if (virtualclass.system.mediaDevices.hasMicrophone) {
-          // virtualclass.media.audioVisual.readyForVisual(stream);
-          if (audio != null) {
-            audio = JSON.parse(audio);
-            if ((audio.ac === 'false' || audio.ac === false)) {
-              virtualclass.gObj.audioEnable = false;
-              virtualclass.user.control.audioDisable(true);
-            } else if (audio.ac === 'true' || audio.ac === true) {
-              virtualclass.gObj.audioEnable = true;
-              virtualclass.user.control.audioWidgetEnable(true);
-            }
-          } else if (typeof stream !== 'undefined') {
-            virtualclass.user.control.audioWidgetEnable(true);
-          }
-        } else {
-          virtualclass.user.control.audioDisable();
-        }
-
         const mediaStreamTrack = stream.getVideoTracks()[0];
-        if (typeof mediaStreamTrack !== 'undefined') {
-          mediaStreamTrack.onended = () => { // for Chrome.
-            if (roles.hasControls()) {
-              virtualclass.videoHost.clearTeacherVideoTime();
-              virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
-              const videoHostContainer = document.getElementById('videoHostContainer');
-              if (videoHostContainer !== null) {
-                videoHostContainer.classList.add('displayInterrupt');
-              }
+        if (typeof mediaStreamTrack !== 'undefined') mediaStreamTrack.onended = this.triggerVideoEnd;
 
-              ioAdapter.mustSend({ cf: 'videoStop' });
-            }
-
-            // virtualclass.media.audio.removeAudioFromLocalStorage();
-          };
-        } else {
-          virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-        }
-
+        // stream audio
         cthis.video.tempStream = stream;
-        cthis.audio.init();
-        cthis.audio.attachAudioStopHandler(stream);
-
-        const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
-        if (userDiv != null) {
-          const vidTag = userDiv.getElementsByTagName('video');
-          if (vidTag != null) {
-            cthis.innerHandleUserMedia(virtualclass.gObj.uid);
-          }
-        }
-
-        if (roles.hasAdmin()) {
-          virtualclass.videoHost.isDomReady(() => {
-            virtualclass.videoHost.renderSelfVideo(stream); // Teacher video
-          });
-        }
-        virtualclass.settings.userVideoIcon();
-
-        /**
-         * Disable teacher video by default, when he/she will join first time
-         */
-
-        if (localStorage.getItem('prevApp') == null) {
-          if (roles.hasControls()) {
-            // true is passed, because, we don't want to pass video control on precheck
-            virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
-          } else if (virtualclass.gObj.meetingMode) {
-            virtualclass.vutil.videoHandler('off');
-          }
-        }
+        cthis.audio.init(stream);
 
         if (cthis.audio.audioContextReady
           && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
           cthis.stream = cthis.video.tempStream;
           cthis.audio.actualManiPulateStream();
         }
+
+        // STREAM // Teacher video
+        if (roles.hasAdmin()) virtualclass.videoHost.isDomReady(() => virtualclass.videoHost.renderSelfVideo(stream));
+
+        // if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
+        //   virtualclass.settings.userAudioIcon();
+        // } else if (virtualclass.system.mediaDevices.hasMicrophone) {
+        //   if (typeof stream !== 'undefined') {
+        //     virtualclass.user.control.audioWidgetEnable(true);
+        //   }
+        // } else {
+        //   virtualclass.user.control.audioDisable();
+        // }
+
+        // const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
+        // if (userDiv != null) {
+        //   const vidTag = userDiv.getElementsByTagName('video');
+        //   if (vidTag != null) cthis.innerHandleUserMedia(); // TODO, the function name should be chagned
+        // }
+
+        // // UI
+        // virtualclass.settings.userVideoIcon();
+
+        // /**
+        //  * Disable teacher video by default, when he/she will join first time
+        //  */
+
+        // // UI
+        // if (localStorage.getItem('prevApp') == null) {
+        //   if (roles.hasControls()) {
+        //     // true is passed, because, we don't want to pass video control on precheck
+        //     virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
+        //   } else if (virtualclass.gObj.meetingMode) {
+        //     virtualclass.vutil.videoHandler('off');
+        //   }
+        // }
       },
 
 
@@ -1649,32 +1811,53 @@ function MediaWrapper(window) {
        * and sends the video
        * @param string userid
        */
+      // innerHandleUserMediaOld() {
+      //   if (typeof cthis !== 'undefined') {
+      //     const stream = cthis.video.tempStream;
+      //     if (typeof stream !== 'undefined') {
+      //       if (virtualclass.system.mediaDevices.hasWebcam) {
+      //         const vidContainer = cthis.video.createVideoElement();
+      //         virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+
+      //         cthis.video.insertTempVideo(vidContainer);
+      //         cthis.video.tempVideoInit();
+      //         // cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+      //         cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
+      //         virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
+      //         cthis.video.myVideo.muted = true;
+      //         cthis.stream = cthis.video.tempStream;
+      //         cthis.video.myVideo.onloadedmetadata = () => {
+      //           cthis.video.startToStream();
+      //           // virtualclass.precheck.webcam.createVideo();
+      //         };
+      //       }
+      //     }
+      //   } else {
+      //     // console.log('Media: it seems media is not ready');
+      //   }
+      // },
+
+
       innerHandleUserMedia() {
         if (typeof cthis !== 'undefined') {
           const stream = cthis.video.tempStream;
+          if (typeof stream !== 'undefined' && virtualclass.system.mediaDevices.hasWebcam) {
+            const vidContainer = cthis.video.createVideoElement();
+            virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
 
-          if (typeof stream !== 'undefined') {
-            if (virtualclass.system.mediaDevices.hasWebcam) {
-              const vidContainer = cthis.video.createVideoElement();
-              virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
-
-              cthis.video.insertTempVideo(vidContainer);
-              cthis.video.tempVideoInit();
-              // cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
-              cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
-              virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
-              cthis.video.myVideo.muted = true;
-              cthis.stream = cthis.video.tempStream;
-              cthis.video.myVideo.onloadedmetadata = () => {
-                cthis.video.startToStream();
-                // virtualclass.precheck.webcam.createVideo();
-              };
-            }
+            cthis.video.insertTempVideo(vidContainer);
+            cthis.video.tempVideoInit();
+            // cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+            cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
+            virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
+            cthis.video.myVideo.muted = true;
+            cthis.stream = cthis.video.tempStream;
+            cthis.video.myVideo.onloadedmetadata = (() => cthis.video.startToStream());
           }
-        } else {
-          // console.log('Media: it seems media is not ready');
         }
       },
+
+
       /**
        * Increasing chat container's height as number of users is increased
        * user box scroll, right bar scroll

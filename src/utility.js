@@ -1613,13 +1613,22 @@
     videoController() {
       const ctr = document.querySelector('.congrea .videoSwitchCont');
       if (ctr) {
-        ctr.addEventListener('click', () => {
-          virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off');
+        ctr.addEventListener('click', async () => {
+          const currentVideoStatus = virtualclass.vutil.selfVideoStatus();
+          if (currentVideoStatus === 'off') {
+            await virtualclass.media.startMedia();
+            // virtualclass.vutil.videoHandler('on');
+          } else {
+            // virtualclass.vutil.videoHandler('off');
+            virtualclass.media.stopMedia();
+          }
+          // virtualclass.vutil.videoHandler((currentVideoStatus === 'off') ? 'on' : 'off');
         });
       }
     },
 
     videoHandler(action, notSend) {
+      console.log('Handle video ', action);
       let video;
       let tooltip;
       const sw = document.querySelector('.congrea .videoSwitchCont #videoSwitch');
@@ -1661,7 +1670,7 @@
           // TODO remove setTimeout
           setTimeout(
             () => {
-              mysmallVideo.srcObject = virtualclass.media.stream;
+              mysmallVideo.srcObject = virtualclass.media.stream; // TODO, why not cthis.video.tempStream
             }, 100,
           );
         }

@@ -95,6 +95,7 @@ var videoHost = {
   renderSelfVideo(stream) {
     if (typeof virtualclass.media.tempStream === 'undefined') {
       // console.log('Media attached stream');
+      console.log('Render self video');
       this.getMediaStream(stream);
     }
   },
@@ -334,6 +335,7 @@ var videoHost = {
     
     
     virtualclass.adpt.attachMediaStream(this.videoHostSrc, stream);
+    console.log("====> ADD media stream final");
     const that = this;
     // TODO remove setTimeout
     setTimeout(

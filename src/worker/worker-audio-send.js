@@ -157,6 +157,14 @@ const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
 
         case 'audioMouseDown':
           this.audMouseDown = e.data.msg.adMouseDown;
+          if (!this.audMouseDown) {
+            console.log('mouse down false guys');
+            this.minthreshold = 65535;
+            this.audioWasSent = 0;
+            this.preAvg = 0;
+            this.curAvg = 0;
+            this.maxthreshold = 0;
+          }
           break;
 
         case 'precheck':

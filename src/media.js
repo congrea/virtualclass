@@ -23,6 +23,9 @@ function MediaWrapper(window) {
   let l;
   let snNodePak;
   let cthis;
+  let audioInputForAudioWorklet = false;
+  let filterAudioWorklet;
+
   if (virtualclass.adpt == null) {
     virtualclass.adpt = new virtualclass.adapter();
   }
@@ -709,7 +712,6 @@ function MediaWrapper(window) {
                 cmd: 'workerAudioRec',
               }, [audoPlaychannel.port2]);
               workerAudioRec.postMessage({ cmd: 'audioWorklet', msg: true });
-              initchannel = true;
               virtualclass.gObj.audioRecWorkerReady = true;
       
               // virtualclass.gObj.workerAudio = true;
@@ -869,7 +871,7 @@ function MediaWrapper(window) {
 
         actualManiPulateStream() {
           // console.log('Manipulate stream');
-          this.triggermaniPulateStream = true;
+          // this.triggermaniPulateStream = true;
           cthis = virtualclass.media;
           // TODO remove setTimeout
           setTimeout(
@@ -891,18 +893,26 @@ function MediaWrapper(window) {
         maniPulateStream() {
           const { stream } = cthis;
           if (typeof workletAudioSend !== 'undefined') {
-            workletAudioSend.disconnect();
+            // workletAudioSend.disconnect();
+            // console.log('====> disconnect audio');
           }
+
           if (typeof stream !== 'undefined' && stream != null) {
             // console.log('Audio worklet init add module');
             cthis.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioSendBlob).then(() => {
               // console.log('== init audio worklet 3');
-              const audioInput = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
+              console.log('====> Add stream on media source ', stream);
+              if (audioInputForAudioWorklet) {
+                audioInputForAudioWorklet.disconnect();
+                filterAudioWorklet.disconnect();
+              }
 
-              const filter = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
-              filter.type = 'lowpass';
-              filter.frequency.value = 2000;
-              audioInput.connect(filter);
+              audioInputForAudioWorklet = cthis.audio.Html5Audio.audioContext.createMediaStreamSource(stream);
+
+              filterAudioWorklet = cthis.audio.Html5Audio.audioContext.createBiquadFilter();
+              filterAudioWorklet.type = 'lowpass';
+              filterAudioWorklet.frequency.value = 2000;
+              audioInputForAudioWorklet.connect(filterAudioWorklet);
 
               workletAudioSend = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-send');
 
@@ -911,7 +921,7 @@ function MediaWrapper(window) {
                 cthis.audio.notifiyMuteAudio();
                 cthis.audio.isProcessError = true;
               };
-              filter.connect(workletAudioSend);
+              filterAudioWorklet.connect(workletAudioSend);
               workletAudioSend.connect(cthis.audio.Html5Audio.audioContext.destination);
 
               virtualclass.gObj.workletAudioSend = workletAudioSend;
@@ -1479,23 +1489,28 @@ function MediaWrapper(window) {
         return [webcam, session];
       },
 
-      async init() {
+      init() {
         // console.log('Video second, normal video');
         cthis = this; // TODO there should be done work for cthis
 
-        if (virtualclass.gesture.classJoin) {
+        if (virtualclass.gesture.classJoin) { // todo, this shouldn't be here
           virtualclass.gesture.attachHandler();
           delete virtualclass.gesture.classJoin;
         }
-
-        this.startMedia();
+        // this.startMedia();
       },
 
-      stopMediaTracks() {
+      stopMedia() {
         if (virtualclass.media.video.tempStream != null) {
           const tracks = virtualclass.media.video.tempStream.getTracks(); // if only one media track
-          tracks.foreach((track) => { track.stop(); });
+          tracks.forEach((track) => { track.stop(); });
         }
+        if (typeof workletAudioSend !== 'undefined') {
+          workletAudioSend.disconnect();
+          console.log('====> disconnect audio from stopMedia');
+        }
+        virtualclass.vutil.videoHandler('off');
+        delete virtualclass.media.tempStream;
       },
 
       async startMedia() {
@@ -1507,12 +1522,14 @@ function MediaWrapper(window) {
 
         if (!virtualclass.vutil.isPlayMode()) {
           if (!virtualclass.adpt) virtualclass.adpt = new virtualclass.adapter();
-          this.stopMediaTracks();
+          this.stopMedia();
           if (!this.cNavigator) this.cNavigator = virtualclass.adpt.init(navigator);
           let stream = null;
           try {
+            console.log("====> ADD media stream 1");
             stream = await this.cNavigator.mediaDevices.getUserMedia(session);
             this.status = 1;
+            console.log("====> ADD media stream 2");
             this.handleUserMedia(stream);
             this.handleUserMediaUISuccess();
           } catch (e) {
@@ -1557,6 +1574,7 @@ function MediaWrapper(window) {
         }
 
         virtualclass.settings.userVideoIcon();
+        virtualclass.vutil.videoHandler('on');
 
 
         // if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
@@ -1583,14 +1601,14 @@ function MediaWrapper(window) {
          */
 
         // UI
-        if (localStorage.getItem('prevApp') == null) {
-          if (roles.hasControls()) {
-            // true is passed, because, we don't want to pass video control on precheck
-            virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
-          } else if (virtualclass.gObj.meetingMode) {
-            virtualclass.vutil.videoHandler('off');
-          }
-        }
+        // if (localStorage.getItem('prevApp') == null) {
+        //   if (roles.hasControls()) {
+        //     // true is passed, because, we don't want to pass video control on precheck
+        //     // virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
+        //   } else if (virtualclass.gObj.meetingMode) {
+        //     virtualclass.vutil.videoHandler('off');
+        //   }
+        // }
       },
 
       /**
@@ -1598,41 +1616,41 @@ function MediaWrapper(window) {
        * and it prompts the user for permission to use video or audio device
        * it  inalizes the video
        */
-      async initNew() {
-        // console.log('Video second, normal video');
-        cthis = this; // TODO there should be done work for cthis: that shoudl be in top
+      // async initNew() {
+      //   // console.log('Video second, normal video');
+      //   cthis = this; // TODO there should be done work for cthis: that shoudl be in top
 
-        if (virtualclass.gesture.classJoin) {
-          virtualclass.gesture.attachHandler();
-          delete virtualclass.gesture.classJoin;
-        }
+      //   if (virtualclass.gesture.classJoin) {
+      //     virtualclass.gesture.attachHandler();
+      //     delete virtualclass.gesture.classJoin;
+      //   }
 
-        const [webcam, session] = this.sessionConstraints();
-        // this.video.init();
+      //   const [webcam, session] = this.sessionConstraints();
+      //   // this.video.init();
 
-        virtualclass.user.control.audioDisable();
-        virtualclass.user.control.videoDisable();
+      //   virtualclass.user.control.audioDisable();
+      //   virtualclass.user.control.videoDisable();
 
-        if (!virtualclass.vutil.isPlayMode() && virtualclass.media.video.tempStream != null) {
-          const tracks = virtualclass.media.video.tempStream.getTracks(); // if only one media track
-          for (let i = 0; i < tracks.length; i++) {
-            tracks[i].stop();
-          }
-          let stream = null;
-          try {
-            stream = await cthis.cNavigator.mediaDevices.getUserMedia(session);
-          } catch (e) {
-            this.handleUserMediaError(e);
-            this.audio.notifiyMuteAudio();
-          }
-          if (stream !== null) this.handleUserMedia(stream);
-        }
+      //   if (!virtualclass.vutil.isPlayMode() && virtualclass.media.video.tempStream != null) {
+      //     const tracks = virtualclass.media.video.tempStream.getTracks(); // if only one media track
+      //     for (let i = 0; i < tracks.length; i++) {
+      //       tracks[i].stop();
+      //     }
+      //     let stream = null;
+      //     try {
+      //       stream = await cthis.cNavigator.mediaDevices.getUserMedia(session);
+      //     } catch (e) {
+      //       this.handleUserMediaError(e);
+      //       this.audio.notifiyMuteAudio();
+      //     }
+      //     if (stream !== null) this.handleUserMedia(stream);
+      //   }
 
-        if (webcam === false) {
-          virtualclass.user.control.videoDisable();
-          virtualclass.vutil.addClass('virtualclassCont', 'nowebcam');
-        }
-      },
+      //   if (webcam === false) {
+      //     virtualclass.user.control.videoDisable();
+      //     virtualclass.vutil.addClass('virtualclassCont', 'nowebcam');
+      //   }
+      // },
 
 
       /**
@@ -1686,7 +1704,7 @@ function MediaWrapper(window) {
       //   // STREAM
       //   if (roles.hasAdmin()) {
       //     virtualclass.videoHost.isDomReady(() => {
-      //       virtualclass.videoHost.renderSelfVideo(stream); // Teacher video
+      //       virtualclass.videoHost.renderenderSelfVideo(stream); // Teacher video
       //     });
       //   }
 
@@ -1736,8 +1754,9 @@ function MediaWrapper(window) {
         cthis.video.tempStream = stream;
         cthis.audio.init(stream);
 
-        if (cthis.audio.audioContextReady
-          && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
+        // if (cthis.audio.audioContextReady
+        //   && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
+        if (cthis.audio.audioContextReady) {
           cthis.stream = cthis.video.tempStream;
           cthis.audio.actualManiPulateStream();
         }
@@ -1839,21 +1858,20 @@ function MediaWrapper(window) {
 
 
       innerHandleUserMedia() {
-        if (typeof cthis !== 'undefined') {
-          const stream = cthis.video.tempStream;
-          if (typeof stream !== 'undefined' && virtualclass.system.mediaDevices.hasWebcam) {
-            const vidContainer = cthis.video.createVideoElement();
-            virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
+        if (typeof cthis !== 'undefined' && typeof cthis.video.tempStream !== 'undefined'
+          && virtualclass.system.mediaDevices.hasWebcam) {
+          console.log('====> inner HTML VIDEO ', virtualclass.system.mediaDevices.hasWebcam);
+          const vidContainer = cthis.video.createVideoElement();
+          virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
 
-            cthis.video.insertTempVideo(vidContainer);
-            cthis.video.tempVideoInit();
-            // cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
-            cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
-            virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
-            cthis.video.myVideo.muted = true;
-            cthis.stream = cthis.video.tempStream;
-            cthis.video.myVideo.onloadedmetadata = (() => cthis.video.startToStream());
-          }
+          cthis.video.insertTempVideo(vidContainer);
+          cthis.video.tempVideoInit();
+          // cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+          cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
+          virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
+          cthis.video.myVideo.muted = true;
+          cthis.stream = cthis.video.tempStream;
+          cthis.video.myVideo.onloadedmetadata = (() => cthis.video.startToStream());
         }
       },
 

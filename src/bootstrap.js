@@ -217,7 +217,9 @@
 
     if (!Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'audIntDisable')
       && !Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'vidIntDisable')) {
-      virtualclass.media.init();
+      // virtualclass.media.init();
+      virtualclass.gesture.triggerAttachHandler();
+      
       // we can not make this synchronous, because after this,
       // we are connecting the web socket
     }

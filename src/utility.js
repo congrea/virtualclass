@@ -384,6 +384,7 @@
         elem.classList.remove(className);
       }
     },
+
     breakIntoBytes(val, l) {
       let numstring = val.toString();
       for (let i = numstring.length; i < l; i++) {
@@ -1616,9 +1617,11 @@
         ctr.addEventListener('click', async () => {
           const currentVideoStatus = virtualclass.vutil.selfVideoStatus();
           if (currentVideoStatus === 'off') {
+            virtualclass.media.video.enable = true;
             await virtualclass.media.startMedia();
             // virtualclass.vutil.videoHandler('on');
           } else {
+            virtualclass.media.video.false = true;
             // virtualclass.vutil.videoHandler('off');
             virtualclass.media.stopMedia();
           }

@@ -264,8 +264,7 @@ const preCheck = {
         virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .next`), this.curr);
       });
 
-      const mediaDetails = virtualclass.media.sessionConstraints();
-      virtualclass.precheck.session = mediaDetails[1];
+      virtualclass.precheck.session = virtualclass.media.sessionConstraints().session;
 
       if (virtualclass.adpt == null) {
         virtualclass.adpt = new virtualclass.adapter();
@@ -689,13 +688,13 @@ const preCheck = {
 
     // console.log('Fetching media stream');
     const videoAction = this.videoAction ? 'on' : 'off';
-    if (!notRequiredStream) await virtualclass.media.init();
+    if (!notRequiredStream) await virtualclass.gesture.triggerAttachHandler(); // todo, remove await
     virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
     virtualclass.media.audio.initAudiocontext();
     virtualclass.precheck.speaker.playTestAudio = false;
     virtualclass.media.audio.studentNotSpeak();
     virtualclass.precheck.donePrecheck = false;
-    
+  
     if (virtualclass.media.detectAudioWorklet()) {
       virtualclass.media.audio.initPlay(); // ready worklet for playing audio 
     } else {

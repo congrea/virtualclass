@@ -173,6 +173,7 @@ const workerAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
 
         case 'rawAudio':
           this.recorderProcess(e.data.msg);
+          console.log('audio record process is triggered ');
           break;
 
         // Send the message to receiver

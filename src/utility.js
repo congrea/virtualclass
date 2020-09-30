@@ -1621,7 +1621,7 @@
             await virtualclass.media.startMedia();
             // virtualclass.vutil.videoHandler('on');
           } else {
-            virtualclass.media.video.false = true;
+            virtualclass.media.video.enable = false;
             // virtualclass.vutil.videoHandler('off');
             virtualclass.media.stopMedia();
           }

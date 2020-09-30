@@ -10,7 +10,7 @@ function MediaWrapper(window) {
   // const aChunksPlay = {};
   // const allAudioArr = {};
 
-  let repMode = false;
+  // let repMode = false;
   // let buf;
   // let vidId;
   // let randomTime;
@@ -1560,7 +1560,7 @@ function MediaWrapper(window) {
         }
       },
 
-      handleUserMediaAudio() {
+      handleUserMediaAudio(stream) {
         // stream audio
         this.video.tempStream = stream;
         this.audio.init(stream);
@@ -1575,7 +1575,7 @@ function MediaWrapper(window) {
       handleUserMediaAudioUI() {
         if (virtualclass.system.mediaDevices.hasMicrophone) {
           if (roles.isStudent()) virtualclass.settings.userAudioIcon();
-          else if (typeof stream !== 'undefined') virtualclass.user.control.audioWidgetEnable(true);
+          else if (typeof this.video.tempStream !== 'undefined') virtualclass.user.control.audioWidgetEnable(true);
         } else {
           virtualclass.user.control.audioDisable();
         }

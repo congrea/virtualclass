@@ -27,6 +27,7 @@ class MediaAudio {
     this.aChunksPlay = {};
     this.allAudioArr = {};
     this.repMode = null;
+    this.attachFunctionsToAudioWidget();
   }
 
   init(stream) {
@@ -58,7 +59,7 @@ class MediaAudio {
         context.stroke();
       },
     };
-    this.attachFunctionsToAudioWidget(); // to attach functions to audio widget
+    // this.attachFunctionsToAudioWidget(); // to attach functions to audio widget
     this.attachAudioStopHandler(stream);
   }
 
@@ -199,16 +200,13 @@ class MediaAudio {
   attachFunctionsToAudioWidget() {
     const audioWiget = document.getElementById('audioWidget');
     const allAudTools = audioWiget.getElementsByClassName('audioTool');
-    const that = this; // TODO Remove that
     for (let i = 0; i < allAudTools.length; i++) {
-      // allAudTools[i].addEventListener('click', function (){ that.audioToolInit.call(that,  allAudTools[i])});
-      if (allAudTools[i].id === 'speakerPressOnce') {
-        // allAudTools[i].setAttribute('data-audio-playing', "false");
-      } else if (allAudTools[i].id === 'speakerPressing') {
-        this.attachSpeakToStudent(allAudTools[i].id);
+      if (allAudTools[i].id === 'speakerPressing') {
+        this.attachSpeakToStudent(allAudTools[i].id); // really in use ???
       }
+
       if (allAudTools[i].id !== 'speakerPressing') {
-        allAudTools[i].addEventListener('click', that.audioToolInit);
+        allAudTools[i].addEventListener('click', this.audioToolInit.bind(this));
       }
     }
   }
@@ -217,9 +215,10 @@ class MediaAudio {
    * It is invoked on clicking on or off button appeared on audio widget
    * And it is invoked on clicking test audio
    */
-  audioToolInit() {
+  audioToolInit(evt) {
+    const elem = evt.currentTarget;
     if (virtualclass.gObj.meetingMode) {
-      const tag = document.getElementById(this.id);
+      const tag = document.getElementById(elem.id);
       // var anchor = tag.getElementsByClassName('tooltip')[0];
       // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
       let action;
@@ -231,19 +230,15 @@ class MediaAudio {
         action = false;
       }
       virtualclass.multiVideo.setAudioStatus(action);
-    } else {
-      const that = virtualclass.media.audio;
-      if (this.id === 'speakerPressOnce') {
-        that.clickOnceSpeaker(this.id);
-      } else if (this.id === 'silenceDetect') {
-        const a = this.getElementsByTagName('a')[0];
-        if (that.sd) {
-          that.sd = false;
-          this.className = `${this.className} sdDisable`;
-        } else {
-          that.sd = true;
-          this.className = `${this.className} sdEnable`;
-        }
+    } else if (elem.id === 'speakerPressOnce') {
+      this.clickOnceSpeaker(elem.id); // todo, this funciton name should be changed into audioUI
+    } else if (elem.id === 'silenceDetect') {
+      if (this.sd) {
+        this.sd = false;
+        elem.className = `${elem.className} sdDisable`;
+      } else {
+        this.sd = true;
+        elem.className = `${elem.className} sdEnable`;
       }
     }
   }
@@ -339,6 +334,8 @@ class MediaAudio {
       tag.setAttribute('data-audio-playing', 'true');
       anchor.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
       tag.className = 'audioTool active';
+      this.enable = true;
+      virtualclass.media.startMedia();
     } else {
       this.studentNotSpeak();
       tag.setAttribute('data-audio-playing', 'false');
@@ -346,6 +343,8 @@ class MediaAudio {
         anchor.setAttribute('data-title', virtualclass.lang.getString('audioDisable'));
       }
       tag.className = 'audioTool deactive';
+      this.enable = false;
+      virtualclass.media.stopMedia();
     }
   }
 
@@ -529,7 +528,7 @@ class MediaAudio {
 
       
       this.addingWorkletPending = true;
-      virtualclass.media.audio.Html5Audio.audioContext.audioWorklet.addModule(this.workletAudioRecBlob).then(() => {
+      virtualclass.media.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioRecBlob).then(() => {
       // Setup the connection: Port 1 is for worker 1
         this.workletAudioRec = new AudioWorkletNode(virtualclass.media.audio.Html5Audio.audioContext, 'worklet-audio-rec');
         virtualclass.media.audio.Html5Audio.MediaStreamDest = virtualclass.media.audio.Html5Audio.audioContext.createMediaStreamDestination();
@@ -742,7 +741,7 @@ class MediaAudio {
    * and getting the audio chunks from audio worklet
    * */
   maniPulateStream() {
-    const { stream } = virtualclass.media.stream;
+    const { stream } = virtualclass.media;
     // if (typeof workletAudioSend !== 'undefined') {
     //   // workletAudioSend.disconnect();
     //   // console.log('====> disconnect audio');
@@ -803,7 +802,7 @@ class MediaAudio {
           cmd: 'workerAudioSend',
         }, [workerWorkletAudioSend.port2]);
 
-        virtualclass.media.workerAudioSendOnmessage();
+        virtualclass.media.audio.workerAudioSendOnmessage();
         // console.log('Audio worklet ready audio worklet module');
       }).catch((e) => {
         virtualclass.media.audio.notifiyMuteAudio();
@@ -918,8 +917,8 @@ class MediaAudio {
       if (event.currentTarget.connectionState === 'connected') {
         try { // TODO Dirty try hack
           // console.log('PEER connected webrtc');
-          this.workletAudioRec.disconnect();
-          this.workletAudioRec.connect(virtualclass.media.audio.Html5Audio.MediaStreamDest);
+          virtualclass.media.audio.workletAudioRec.disconnect();
+          virtualclass.media.audio.workletAudioRec.connect(virtualclass.media.audio.Html5Audio.MediaStreamDest);
         } catch (e) {
           console.log('Audio error ', e);
         }
@@ -930,8 +929,8 @@ class MediaAudio {
         lc1 = null;
         lc2 = null;
         try {
-          this.workletAudioRec.disconnect();
-          this.workletAudioRec.connect(virtualclass.media.audio.Html5Audio.audioContext.destination);
+          virtualclass.media.audio.workletAudioRec.disconnect();
+          virtualclass.media.audio.workletAudioRec.connect(virtualclass.media.audio.Html5Audio.audioContext.destination);
           // console.log('PEER connected normal audio api');
         } catch (e) {
           console.log('Audio error ', e);
@@ -997,7 +996,7 @@ class MediaAudio {
       // Peer connection failed, fallback to standard
       // console.log('PEER fallback');
       try {
-        this.workletAudioRec.connect(virtualclass.media.audio.Html5Audio.audioContext.destination);
+        virtualclass.media.audio.virtualclass.media.audio.connect(virtualclass.media.audio.Html5Audio.audioContext.destination);
         lc1.close();
         lc2.close();
         lc1 = null;

@@ -75,17 +75,30 @@ class MediaAudio {
   initAudiocontext() {
     if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !virtualclass.gObj.meetingMode) {  
       this.Html5Audio = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
-      if (virtualclass.media.audio.Html5Audio.audioContext == null) {
-        alert('audio context is null');
-      }
-      this.resampler = new Resampler(virtualclass.media.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
-      virtualclass.gObj.isAudioContextReady = true;
       this.audioContextReady = true;
-      if (virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode
-        && virtualclass.media.video.tempStream != null) {
-        virtualclass.media.stream = virtualclass.media.video.tempStream;
-        virtualclass.media.audio.actualManiPulateStream();
-      }
+      // if (virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode
+      //   && virtualclass.media.video.tempStream != null) {
+      //   virtualclass.media.stream = virtualclass.media.video.tempStream;
+      //   virtualclass.media.audio.actualManiPulateStream();
+      // }
+    }
+
+    if (!this.resampler) {
+      this.resampler = new Resampler(virtualclass.media.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
+    }
+  }
+
+  closeContext() {
+    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
+    && this.Html5Audio.audioContext != null) {
+      // To handle the cracking sound on the side who performes precheck
+      // Html5Audio.audioContext to generate the sending audio
+      this.Html5Audio.audioContext.close(); 
+    }
+
+    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
+      delete virtualclass.media.audio.Html5Audio;
     }
   }
 

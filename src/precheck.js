@@ -674,17 +674,19 @@ const preCheck = {
     //   virtualclass.media.audio.Html5Audio.audioContext.close();
     // }
 
-    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
-    && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
-    && virtualclass.media.audio.Html5Audio.audioContext != null) {
-      // To handle the cracking sound on the side who performes precheck
-      // Html5Audio.audioContext to generate the sending audio
-      virtualclass.media.audio.Html5Audio.audioContext.close(); 
-    }
+    // if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    // && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
+    // && virtualclass.media.audio.Html5Audio.audioContext != null) {
+    //   // To handle the cracking sound on the side who performes precheck
+    //   // Html5Audio.audioContext to generate the sending audio
+    //   virtualclass.media.audio.Html5Audio.audioContext.close(); 
+    // }
 
-    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
-      delete virtualclass.media.audio.Html5Audio;
-    }
+    // if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
+    //   delete virtualclass.media.audio.Html5Audio;
+    // }
+
+    virtualclass.media.audio.closeContext();
 
     // console.log('Fetching media stream');
     const videoAction = this.videoAction ? 'on' : 'off';

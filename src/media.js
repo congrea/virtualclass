@@ -1506,6 +1506,7 @@ function MediaWrapper(window) {
       // },
 
       stopMedia() {
+        this.audio.closeContext();
         if (virtualclass.media.video.tempStream != null) {
           const tracks = virtualclass.media.video.tempStream.getTracks(); // if only one media track
           tracks.forEach((track) => { track.stop(); });
@@ -1516,12 +1517,14 @@ function MediaWrapper(window) {
         }
         virtualclass.vutil.videoHandler('off');
         delete virtualclass.media.tempStream;
+        this.audio.audioContextReady = false;
       },
 
       async startMedia() {
         this.status = 0;
         if (!virtualclass.vutil.isPlayMode()) {
-          this.stopMedia();
+          // this.stopMedia();
+          this.audio.initAudiocontext();
           const { session } = this.sessionConstraints();
           if (this.audio.enable && !this.video.enable) {
             session.video = false;

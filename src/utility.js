@@ -1613,21 +1613,7 @@
 
     videoController() {
       const ctr = document.querySelector('.congrea .videoSwitchCont');
-      if (ctr) {
-        ctr.addEventListener('click', async () => {
-          const currentVideoStatus = virtualclass.vutil.selfVideoStatus();
-          if (currentVideoStatus === 'off') {
-            virtualclass.media.video.enable = true;
-            await virtualclass.media.startMedia();
-            // virtualclass.vutil.videoHandler('on');
-          } else {
-            virtualclass.media.video.enable = false;
-            // virtualclass.vutil.videoHandler('off');
-            virtualclass.media.stopMedia();
-          }
-          // virtualclass.vutil.videoHandler((currentVideoStatus === 'off') ? 'on' : 'off');
-        });
-      }
+      if (ctr) ctr.addEventListener('click', () => virtualclass.media.video.handleVideoControl());
     },
 
     videoHandler(action, notSend) {

@@ -73,7 +73,8 @@ class MediaAudio {
   }
 
   initAudiocontext() {
-    if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !virtualclass.gObj.meetingMode) {  
+    if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !virtualclass.gObj.meetingMode) {
+      console.log('====> init audio context');
       this.Html5Audio = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
       this.audioContextReady = true;
       // if (virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode
@@ -94,7 +95,8 @@ class MediaAudio {
     && this.Html5Audio.audioContext != null) {
       // To handle the cracking sound on the side who performes precheck
       // Html5Audio.audioContext to generate the sending audio
-      this.Html5Audio.audioContext.close(); 
+      console.log('closing audio context');
+      this.Html5Audio.audioContext.close();
     }
 
     if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
@@ -358,6 +360,7 @@ class MediaAudio {
       tag.className = 'audioTool deactive';
       this.enable = false;
       virtualclass.media.stopMedia();
+      if (virtualclass.media.video.enable) virtualclass.media.startMedia();
     }
   }
 

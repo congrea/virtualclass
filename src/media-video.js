@@ -260,4 +260,17 @@ class MediaVideo {
     }
     virtualclass.media.video.drawReceivedImage(b64encoded, imgType, { x: 0, y: 0 }, uid);
   }
+
+  async handleVideoControl() {
+    const currentVideoStatus = virtualclass.vutil.selfVideoStatus();
+    if (currentVideoStatus === 'off') {
+      this.enable = true;
+      await virtualclass.media.startMedia();
+    } else {
+      this.enable = false;
+      // virtualclass.vutil.videoHandler('off');
+      virtualclass.media.stopMedia();
+      if (virtualclass.media.audio.enable) virtualclass.media.startMedia();
+    }
+  }
 }

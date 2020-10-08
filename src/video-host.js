@@ -227,7 +227,7 @@ var videoHost = {
       }
       cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
       cthis.video.myVideo.muted = true;
-      virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
+      virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.stream);
     }
   },
 

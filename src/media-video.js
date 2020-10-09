@@ -129,7 +129,7 @@ class MediaVideo {
       clearInterval(virtualclass.media.smallVid);
 
       if (Object.prototype.hasOwnProperty.call(virtualclass, 'connectedUsers')) {
-        const d = this.randomTime + (virtualclass.connectedUsers.length * 2500);
+        const d = virtualclass.media.video.randomTime + (virtualclass.connectedUsers.length * 2500);
         if (totalMembers !== virtualclass.connectedUsers.length) {
           totalMembers = virtualclass.connectedUsers.length;
           let p = -1;

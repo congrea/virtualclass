@@ -74,7 +74,7 @@ class MediaAudio {
 
   initAudiocontext() {
     if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !virtualclass.gObj.meetingMode) {
-      console.log('====> init audio context');
+      console.log('====> audio context start');
       this.Html5Audio = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
       this.audioContextReady = true;
       // if (virtualclass.system.mediaDevices.hasMicrophone && !virtualclass.isPlayMode
@@ -95,7 +95,7 @@ class MediaAudio {
     && this.Html5Audio.audioContext != null) {
       // To handle the cracking sound on the side who performes precheck
       // Html5Audio.audioContext to generate the sending audio
-      console.log('closing audio context');
+      console.log('====> audio context close');
       this.Html5Audio.audioContext.close();
     }
 
@@ -533,22 +533,22 @@ class MediaAudio {
 
   initPlay() {
     if (!this.addingWorkletPending) {
-      console.log('audio init worklet suman b');
       if (this.workletAudioRec) {
         console.log('audio worklet disconnect');
         this.workletAudioRec.disconnect();
       }
-      if (!Object.prototype.hasOwnProperty.call(this, 'Html5Audio') && !this.Html5Audio) {
-        this.Html5Audio = { audioContext: new (window.AudioContext || window.webkitAudioContext)() };
+
+      if (!Object.prototype.hasOwnProperty.call(this, 'audioContextRec') && !this.audioContextRec) {
+        // this.audioContextRec = new (window.AudioContext || window.webkitAudioContext)();
+        this.Html5Audio = { audioContextRec: new (window.AudioContext || window.webkitAudioContext)() };
       }
 
-      
       this.addingWorkletPending = true;
-      virtualclass.media.audio.Html5Audio.audioContext.audioWorklet.addModule(workletAudioRecBlob).then(() => {
+      virtualclass.media.audio.Html5Audio.audioContextRec.audioWorklet.addModule(workletAudioRecBlob).then(() => {
       // Setup the connection: Port 1 is for worker 1
-        this.workletAudioRec = new AudioWorkletNode(virtualclass.media.audio.Html5Audio.audioContext, 'worklet-audio-rec');
-        virtualclass.media.audio.Html5Audio.MediaStreamDest = virtualclass.media.audio.Html5Audio.audioContext.createMediaStreamDestination();
-        this.workletAudioRec.connect(virtualclass.media.audio.Html5Audio.audioContext.destination);
+        this.workletAudioRec = new AudioWorkletNode(this.Html5Audio.audioContextRec, 'worklet-audio-rec');
+        virtualclass.media.audio.Html5Audio.MediaStreamDest = this.Html5Audio.audioContextRec.createMediaStreamDestination();
+        this.workletAudioRec.connect(this.Html5Audio.audioContextRec.destination);
 
         virtualclass.gObj.workletAudioRec = this.workletAudioRec;
         if (virtualclass.system.mybrowser.name === 'Chrome') {
@@ -564,7 +564,7 @@ class MediaAudio {
         // Setup the connection: Port 2 is for worker 2
         workerAudioRec.postMessage({
           cmd: 'workerIO',
-          sampleRate: virtualclass.media.audio.Html5Audio.audioContext.sampleRate,
+          sampleRate: this.Html5Audio.audioContextRec.sampleRate,
         }, [audioReadyChannel.port2]);
 
         const audoPlaychannel = new MessageChannel();
@@ -582,7 +582,7 @@ class MediaAudio {
 
         // virtualclass.gObj.workerAudio = true;
         delete virtualclass.media.audio.addingWorkletPending;
-        
+
       }).catch((error) => {
         console.log('ERROR ', error);
       });

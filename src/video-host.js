@@ -7,8 +7,6 @@
 
 
 const BASE64_MARKER = ';base64,';
-let videoPartCont; let
-  sampleRate;
 var videoHost = {
   gObj: {},
   setDefaultValue(speed) {
@@ -434,11 +432,12 @@ var videoHost = {
     // for sync the audio and video
     const that = this;
 
-    if (typeof virtualclass.media.audio.Html5Audio !== 'undefined') {
-      sampleRate = virtualclass.media.audio.Html5Audio.audioContext.sampleRate;
-    } else if (typeof sampleRate === 'undefined') {
-      sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
-    }
+    // if (typeof virtualclass.media.audio.Html5Audio !== 'undefined') {
+    //   sampleRate = virtualclass.media.audio.Html5Audio.audioContext.sampleRate;
+    // } else if (typeof sampleRate === 'undefined') {
+    //   sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
+    // }
+
     if (virtualclass.gObj.isReadyForVideo) {
       if (document.querySelector('#virtualclassCont.congrea #videoHostContainer.hide')) {
         virtualclass.videoHost.UI.displayTeacherVideo();

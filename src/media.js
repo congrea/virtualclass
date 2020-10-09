@@ -1,55 +1,14 @@
 /**
- * This file provides functionalies of capturing, transmiting and playing audio/video.
+ * This file captures audio and video and send it other particpates
+ * It also captures the medium video of presenter
  * @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta
  */
 
 function MediaWrapper(window) {
-  // const audioToBePlay = {};
-  // const aChunksPlay = {};
-  // const allAudioArr = {};
-
-  // let repMode = false;
-  // let buf;
-  // let vidId;
-  // let randomTime;
-  // let luid;
-  // let allAudioSend = [];
-  // let audioLen = 0;
-  // let workletAudioSend;
-  // let workletAudioRec;
-  // let workerAudioRecOnmessage = false;
-  // let l;
-  // let snNodePak;
-  let cthis;
-  // let audioInputForAudioWorklet = false;
-  // let filterAudioWorklet;
   virtualclass.adpt = new virtualclass.adapter();
   const cNavigator = virtualclass.adpt.init(navigator);
-
-  // function breakintobytes(val, l) {
-  //   let numstring = val.toString();
-  //   for (let i = numstring.length; i < l; i++) {
-  //     numstring = `0${numstring}`;
-  //   }
-  //   const parts = numstring.match(/[\S]{1,2}/g) || [];
-  //   return parts;
-  // }
-
-  /**
-   * To convert float to integer
-   * @param  buffer: audio samples a Float32 bit  array
-   * @returns buf : Int16Array buffer
-   */
-  // function convertFloat32ToInt16(buffer) {
-  //   l = buffer.length;
-  //   buf = new Int16Array(l);
-  //   while (l--) {
-  //     buf[l] = Math.min(1, buffer[l]) * 0x7FFF;
-  //   }
-  //   return buf;
-  // }
 
   /**
    * this returns an object that contains various Properties
@@ -81,7 +40,6 @@ function MediaWrapper(window) {
       status: 0, // 0 = No webCam, 1 = Webcam Success, 2 = Webcam error
 
       init() {
-        cthis = this;
         this.audio = new MediaAudio();
         this.video = new MediaVideo();
       },
@@ -177,24 +135,12 @@ function MediaWrapper(window) {
 
 
         const session = {
-          // audio: virtualclass.gObj.multiVideo ? true :  audioOpts,
           video: webcam,
           audio: audioConstraint,
         };
 
         return { webcam, session };
       },
-
-      // init() {
-      //   // console.log('Video second, normal video');
-      //   cthis = this; // TODO there should be done work for cthis
-
-      //   if (virtualclass.gesture.classJoin) { // todo, this shouldn't be here
-      //     virtualclass.gesture.attachHandler();
-      //     delete virtualclass.gesture.classJoin;
-      //   }
-      //   // this.startMedia();
-      // },
 
       stopMedia() {
         this.audio.closeContext();
@@ -238,8 +184,6 @@ function MediaWrapper(window) {
             }
 
             this.status = 1;
-            // this.handleUserMedia(stream);
-            // this.handleUserMediaUISuccess();
           } catch (e) {
             this.status = 2;
             this.handleUserMediaError(e);
@@ -260,10 +204,7 @@ function MediaWrapper(window) {
         // stream audio
         this.stream = stream;
         this.audio.init(stream);
-
-        if (this.audio.audioContextReady) {
-          this.audio.actualManiPulateStream();
-        }
+        if (this.audio.audioContextReady) this.audio.actualManiPulateStream();
         this.handleUserMediaAudioUI();
       },
 
@@ -280,7 +221,7 @@ function MediaWrapper(window) {
         const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
         if (userDiv != null) {
           const vidTag = userDiv.getElementsByTagName('video');
-          if (vidTag != null) cthis.innerHandleUserMedia(); // TODO, the function name should be chagned// really using ?????
+          if (vidTag != null) this.innerHandleUserMedia(); // TODO, the function name should be chagned// really using ?????
         }
 
         virtualclass.settings.userVideoIcon();
@@ -296,19 +237,6 @@ function MediaWrapper(window) {
         this.handleUserMediaVideoUI();
       },
 
-
-      // handleUserMediaUI() {
-      //   if (!this.status) {
-      //     virtualclass.user.control.videoDisable();
-      //     virtualclass.vutil.addClass('virtualclassCont', 'nowebcam');
-      //   } else if (this.status === 1) {
-      //     this.handleUserMediaUISuccess();
-      //   } else {
-      //     this.handleUserMediaError(this.mediaEvent);
-      //     this.audio.notifiyMuteAudio();
-      //   }
-      // },
-
       handleUserMediaUISuccess() {
         const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
         if (virtualclass.system.mediaDevices.hasMicrophone) {
@@ -320,168 +248,12 @@ function MediaWrapper(window) {
 
         if (userDiv != null) {
           const vidTag = userDiv.getElementsByTagName('video');
-          if (vidTag != null) cthis.innerHandleUserMedia(); // TODO, the function name should be chagned// really using ?????
+          if (vidTag != null) this.innerHandleUserMedia(); // TODO, the function name should be chagned// really using ?????
         }
 
         virtualclass.settings.userVideoIcon();
         virtualclass.vutil.videoHandler('on');
-
-
-        // if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
-        //   virtualclass.settings.userAudioIcon();
-        // } else if (virtualclass.system.mediaDevices.hasMicrophone) {
-        //   if (typeof stream !== 'undefined') {
-        //     virtualclass.user.control.audioWidgetEnable(true);
-        //   }
-        // } else {
-        //   virtualclass.user.control.audioDisable();
-        // }
-
-        // const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
-        // if (userDiv != null) {
-        //   const vidTag = userDiv.getElementsByTagName('video');
-        //   if (vidTag != null) cthis.innerHandleUserMedia(); // TODO, the function name should be chagned
-        // }
-
-        // UI
-        // virtualclass.settings.userVideoIcon();
-
-        /**
-         * Disable teacher video by default, when he/she will join first time
-         */
-
-        // UI
-        // if (localStorage.getItem('prevApp') == null) {
-        //   if (roles.hasControls()) {
-        //     // true is passed, because, we don't want to pass video control on precheck
-        //     // virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
-        //   } else if (virtualclass.gObj.meetingMode) {
-        //     virtualclass.vutil.videoHandler('off');
-        //   }
-        // }
       },
-
-      /**
-       * It creates a mediator for getUSerMedia
-       * and it prompts the user for permission to use video or audio device
-       * it  inalizes the video
-       */
-      // async initNew() {
-      //   // console.log('Video second, normal video');
-      //   cthis = this; // TODO there should be done work for cthis: that shoudl be in top
-
-      //   if (virtualclass.gesture.classJoin) {
-      //     virtualclass.gesture.attachHandler();
-      //     delete virtualclass.gesture.classJoin;
-      //   }
-
-      //   const [webcam, session] = this.sessionConstraints();
-      //   // this.video.init();
-
-      //   virtualclass.user.control.audioDisable();
-      //   virtualclass.user.control.videoDisable();
-
-      //   if (!virtualclass.vutil.isPlayMode() && virtualclass.media.video.tempStream != null) {
-      //     const tracks = virtualclass.media.video.tempStream.getTracks(); // if only one media track
-      //     for (let i = 0; i < tracks.length; i++) {
-      //       tracks[i].stop();
-      //     }
-      //     let stream = null;
-      //     try {
-      //       stream = await cthis.cNavigator.mediaDevices.getUserMedia(session);
-      //     } catch (e) {
-      //       this.handleUserMediaError(e);
-      //       this.audio.notifiyMuteAudio();
-      //     }
-      //     if (stream !== null) this.handleUserMedia(stream);
-      //   }
-
-      //   if (webcam === false) {
-      //     virtualclass.user.control.videoDisable();
-      //     virtualclass.vutil.addClass('virtualclassCont', 'nowebcam');
-      //   }
-      // },
-
-
-      /**
-       * This function  is invoked with the resulting media stream object if the call to getUserMedia succeeds.
-       * And invoke handleUSerMediaError in case of getusermedia error.
-       * handleUSerMedia  initializes audio.
-       * @param stream object
-       */
-
-      // handleUserMediaOld(stream) {
-      //   if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
-      //     virtualclass.settings.userAudioIcon();
-      //   } else if (virtualclass.system.mediaDevices.hasMicrophone) {
-      //     if (typeof stream !== 'undefined') {
-      //       virtualclass.user.control.audioWidgetEnable(true);
-      //     }
-      //   } else {
-      //     virtualclass.user.control.audioDisable();
-      //   }
-
-      //   const mediaStreamTrack = stream.getVideoTracks()[0];
-      //   if (typeof mediaStreamTrack !== 'undefined') {
-      //     mediaStreamTrack.onended = () => { // for Chrome.
-      //       if (roles.hasControls()) {
-      //         virtualclass.videoHost.clearTeacherVideoTime();
-      //         virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
-      //         const videoHostContainer = document.getElementById('videoHostContainer');
-      //         if (videoHostContainer !== null) {
-      //           videoHostContainer.classList.add('displayInterrupt');
-      //         }
-      //         ioAdapter.mustSend({ cf: 'videoStop' });
-      //       }
-      //     };
-      //   } else {
-      //     virtualclass.system.mediaDevices.webcamErr.push('nopermission');
-      //   }
-
-      //   // stream audio
-      //   cthis.video.tempStream = stream;
-      //   cthis.audio.init();
-      //   cthis.audio.attachAudioStopHandler(stream);
-
-      //   const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
-      //   if (userDiv != null) {
-      //     const vidTag = userDiv.getElementsByTagName('video');
-      //     if (vidTag != null) {
-      //       cthis.innerHandleUserMedia(virtualclass.gObj.uid);
-      //     }
-      //   }
-
-      //   // STREAM
-      //   if (roles.hasAdmin()) {
-      //     virtualclass.videoHost.isDomReady(() => {
-      //       virtualclass.videoHost.renderenderSelfVideo(stream); // Teacher video
-      //     });
-      //   }
-
-      //   // UI
-      //   virtualclass.settings.userVideoIcon();
-
-      //   /**
-      //    * Disable teacher video by default, when he/she will join first time
-      //    */
-
-      //   // UI
-      //   if (localStorage.getItem('prevApp') == null) {
-      //     if (roles.hasControls()) {
-      //       // true is passed, because, we don't want to pass video control on precheck
-      //       virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
-      //     } else if (virtualclass.gObj.meetingMode) {
-      //       virtualclass.vutil.videoHandler('off');
-      //     }
-      //   }
-
-      //   // STREAM
-      //   if (cthis.audio.audioContextReady
-      //     && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
-      //     cthis.stream = cthis.video.tempStream;
-      //     cthis.audio.actualManiPulateStream();
-      //   }
-      // },
 
       // for Chrome.
       triggerVideoEnd() {
@@ -501,51 +273,12 @@ function MediaWrapper(window) {
         if (typeof mediaStreamTrack !== 'undefined') mediaStreamTrack.onended = this.triggerVideoEnd;
 
         // stream audio
-        cthis.stream = stream;
-        cthis.audio.init(stream);
+        this.stream = stream;
+        this.audio.init(stream);
 
-        // if (cthis.audio.audioContextReady
-        //   && !Object.prototype.hasOwnProperty.call(cthis.audio, 'triggermaniPulateStream')) {
-        if (cthis.audio.audioContextReady) {
-          cthis.stream = cthis.stream;
-          cthis.audio.actualManiPulateStream();
-        }
-
+        if (this.audio.audioContextReady) this.audio.actualManiPulateStream();
         // STREAM // Teacher video
         if (roles.hasAdmin()) virtualclass.videoHost.isDomReady(() => virtualclass.videoHost.renderSelfVideo(stream));
-
-        // if (roles.isStudent() && virtualclass.system.mediaDevices.hasMicrophone) {
-        //   virtualclass.settings.userAudioIcon();
-        // } else if (virtualclass.system.mediaDevices.hasMicrophone) {
-        //   if (typeof stream !== 'undefined') {
-        //     virtualclass.user.control.audioWidgetEnable(true);
-        //   }
-        // } else {
-        //   virtualclass.user.control.audioDisable();
-        // }
-
-        // const userDiv = chatContainerEvent.elementFromShadowDom(`#ml${virtualclass.gObj.uid}`);
-        // if (userDiv != null) {
-        //   const vidTag = userDiv.getElementsByTagName('video');
-        //   if (vidTag != null) cthis.innerHandleUserMedia(); // TODO, the function name should be chagned
-        // }
-
-        // // UI
-        // virtualclass.settings.userVideoIcon();
-
-        // /**
-        //  * Disable teacher video by default, when he/she will join first time
-        //  */
-
-        // // UI
-        // if (localStorage.getItem('prevApp') == null) {
-        //   if (roles.hasControls()) {
-        //     // true is passed, because, we don't want to pass video control on precheck
-        //     virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off', true);
-        //   } else if (virtualclass.gObj.meetingMode) {
-        //     virtualclass.vutil.videoHandler('off');
-        //   }
-        // }
       },
 
 
@@ -580,48 +313,20 @@ function MediaWrapper(window) {
        * and sends the video
        * @param string userid
        */
-      // innerHandleUserMediaOld() {
-      //   if (typeof cthis !== 'undefined') {
-      //     const stream = cthis.video.tempStream;
-      //     if (typeof stream !== 'undefined') {
-      //       if (virtualclass.system.mediaDevices.hasWebcam) {
-      //         const vidContainer = cthis.video.createVideoElement();
-      //         virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
-
-      //         cthis.video.insertTempVideo(vidContainer);
-      //         cthis.video.tempVideoInit();
-      //         // cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
-      //         cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
-      //         virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
-      //         cthis.video.myVideo.muted = true;
-      //         cthis.stream = cthis.video.tempStream;
-      //         cthis.video.myVideo.onloadedmetadata = () => {
-      //           cthis.video.startToStream();
-      //           // virtualclass.precheck.webcam.createVideo();
-      //         };
-      //       }
-      //     }
-      //   } else {
-      //     // console.log('Media: it seems media is not ready');
-      //   }
-      // },
-
 
       innerHandleUserMedia() {
-        if (typeof cthis !== 'undefined' && typeof cthis.stream !== 'undefined'
-          && virtualclass.system.mediaDevices.hasWebcam) {
+        if (typeof this.stream !== 'undefined' && virtualclass.system.mediaDevices.hasWebcam) {
           console.log('====> inner HTML VIDEO ', virtualclass.system.mediaDevices.hasWebcam);
-          const vidContainer = cthis.video.createVideoElement();
+          const vidContainer = this.video.createVideoElement();
           virtualclass.media.util.imageReplaceWithVideo(virtualclass.gObj.uid, vidContainer);
 
-          cthis.video.insertTempVideo(vidContainer);
-          cthis.video.tempVideoInit();
-          // cthis.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
-          cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
-          virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.stream);
-          cthis.video.myVideo.muted = true;
-          cthis.stream = cthis.stream;
-          cthis.video.myVideo.onloadedmetadata = (() => cthis.video.startToStream());
+          this.video.insertTempVideo(vidContainer);
+          this.video.tempVideoInit();
+          // this.video.myVideo = document.getElementById("video" + virtualclass.gObj.uid);
+          this.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
+          virtualclass.adpt.attachMediaStream(this.video.myVideo, this.stream);
+          this.video.myVideo.muted = true;
+          this.video.myVideo.onloadedmetadata = (() => this.video.startToStream());
         }
       },
 
@@ -635,10 +340,7 @@ function MediaWrapper(window) {
         const mh = virtualclass.chat.boxHeight;
 
         const chatDiv = document.getElementById('chat_div');
-        if (chatDiv.scrollHeight >= (mh + 1)) {
-          chatDiv.style.overflowY = 'scroll';
-        }
-
+        if (chatDiv.scrollHeight >= (mh + 1)) chatDiv.style.overflowY = 'scroll';
         chatDiv.style.maxHeight = `${mh}px`;
 
         // console.log(`Chat height ${chatDiv.offsetHeight}`);
@@ -648,12 +350,14 @@ function MediaWrapper(window) {
           chatDiv.style.maxHeight = `${mh + 64}px`;
         }
       },
+
       // Closeing the video
       close() {
         if (Object.prototype.hasOwnProperty.call(virtualclass.media, 'smallVid')) {
           clearInterval(virtualclass.media.smallVid);
         }
       },
+
       /**
        * Plays all videos of currentlly logged in users after an interval of 1040 ms
        * @param id footer chat  container id
@@ -732,15 +436,10 @@ function MediaWrapper(window) {
         }
 
         virtualclass.system.mediaDevices.webcamErr.push(errorCode);
-
-        // cthis.audio.notifiyMuteAudio();
-        // virtualclass.media.audio.removeAudioFromLocalStorage();
       },
 
       detectAudioWorklet: () => {
-        if (typeof OfflineAudioContext === 'undefined') {
-          return false;
-        }
+        if (typeof OfflineAudioContext === 'undefined') return false;
         const context = new OfflineAudioContext(1, 1, 44100);
         return Boolean(
           context.audioWorklet

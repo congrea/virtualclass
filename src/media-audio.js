@@ -680,7 +680,7 @@ class MediaAudio {
     // console.log('AUDIO' + this.allAudioArr[158].length);
     this.allAudioSend = [];
     this.audioLen = 0;
-    for (letluid in this.audioToBePlay) {
+    for (let luid in this.audioToBePlay) {
       const temp = this.getAudioChunks(luid);
       if (temp != null) {
         this.audioLen++;

@@ -173,6 +173,7 @@ function MediaWrapper(window) {
 
           let stream = null;
           try {
+            console.log('====> get user media init add stream');
             stream = await cNavigator.mediaDevices.getUserMedia(session);
             if (this.video.enable && this.audio.enable) {
               this.handleUserMediaAudio(stream);
@@ -183,6 +184,8 @@ function MediaWrapper(window) {
               this.handleUserMediaAudio(stream);
             }
 
+            console.log('====> get user media init 2 add stream');
+
             this.status = 1;
           } catch (e) {
             this.status = 2;
@@ -192,7 +195,6 @@ function MediaWrapper(window) {
           }
         }
 
-        // this.handleUserMediaUI();
 
         if (!this.status) {
           virtualclass.user.control.videoDisable();

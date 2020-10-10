@@ -736,19 +736,11 @@ class MediaAudio {
 
 
   actualManiPulateStream() {
-    // console.log('Manipulate stream');
-    // this.triggermaniPulateStream = true;
-    virtualclass.media = virtualclass.media;
-    // TODO remove setTimeout
-    setTimeout(
-      () => {
-        if (virtualclass.media.detectAudioWorklet()) {
-          virtualclass.media.audio.maniPulateStream();
-        } else {
-          virtualclass.media.audio.maniPulateStreamWithFallback();
-        }
-      }, 1000,
-    );
+    if (virtualclass.media.detectAudioWorklet()) {
+      this.maniPulateStream();
+    } else {  
+      this.maniPulateStreamWithFallback();
+    }
   }
 
 

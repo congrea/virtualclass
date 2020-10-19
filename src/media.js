@@ -1,25 +1,28 @@
-// This file is part of Vidyamantra - http:www.vidyamantra.com/
-/** @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
+/**
+ * This file provides functionalies of capturing, transmiting and playing audio/video.
+ * @Copyright 2014  Vidya Mantra EduSystems Pvt. Ltd.
  * @author  Suman Bogati <http://www.vidyamantra.com>
  * @author  Jai Gupta
- * This file provides functionality to capture , transmit and play audio and
- * video for multiple users.
- *
  */
 
-(function (window) {
-  let repMode; let buf; let vidId; let randomTime; let
-    cthis;
-
+function MediaWrapper(window) {
   const audioToBePlay = {};
   const aChunksPlay = {};
   const allAudioArr = {};
+
+  let repMode = false;
+  let buf;
+  let vidId;
+  let randomTime;
+  let cthis;
   let luid;
   let allAudioSend = [];
   let audioLen = 0;
   let workletAudioSend;
   let workletAudioRec;
-  let initchannel;
+  let workerAudioRecOnmessage = false;
+  let l;
+  let snNodePak;
 
   function breakintobytes(val, l) {
     let numstring = val.toString();
@@ -30,8 +33,6 @@
     return parts;
   }
 
-  repMode = false;
-  // var io = window.io;
   /**
    * To convert float to integer
    * @param  buffer: audio samples a Float32 bit  array
@@ -46,35 +47,13 @@
     return buf;
   }
 
-  const responseErorr = function () {
-    // console.log('this error is come when the create and answer is occurring');
-  };
-
-  const ar = 0;
-  const audioWasSent = 0;
-  const preAudioSamp = 0;
-  const preAvg = 0;
-  const curAvg = 0;
-  const audiotime = 0;
-  const workerAudioSendOnmessage = false;
-  let workerAudioRecOnmessage = false;
-
-  // var allAudioArr = {};
-
-  const userSource = {}; // for contain the user specific audio source
-  const sNode = {};
-
-  const ac = {};
-  const sNodePak = {};
-  let snNodePak;
-
   /**
    * this returns an object that contains various Properties
    * to facilitate the capturing , saving, transmitting and
    *  rendering audio or video.
    *
    */
-  const media = function () {
+  function Media() {
     return {
       isChannelReady: '', // not being used
       isStarted: '',
@@ -155,7 +134,7 @@
       },
 
       workerAudioSendOnmessage() {
-        workerAudioSend.onmessage = function (e) {
+        workerAudioSend.onmessage = (e) => {
           if (Object.prototype.hasOwnProperty.call(e.data, 'cmd')) {
             if (e.data.cmd === 'muteAudio') {
               cthis.audio.notifiyMuteAudio();
@@ -349,7 +328,7 @@
           const context = canvas.getContext('2d');
           const imageObj = new Image();
 
-          imageObj.onload = function () {
+          imageObj.onload = () => {
             context.drawImage(imageObj, 0, 0);
           };
           imageObj.src = `${window.whiteboardPath}images/${imgName}`;
@@ -492,7 +471,6 @@
         // TODO this function is being called with only one attribute
         clickOnceSpeaker(id, alwaysDisable) {
           const tag = document.getElementById(id);
-          const alwaysPressElem = document.getElementById('speakerPressing');
           const anchor = tag.getElementsByClassName('congtooltip')[0];
           // var anchor = tag.getElementsByClassName('tooltip')[0];
           // if (tag.getAttribute('data-audio-playing') == 'false' && typeof alwaysDisable == 'undefined') {
@@ -596,7 +574,6 @@
          * Resamples the audio and silence detection, and broadcast audio
          */
         recorderProcess(left) {
-          const currTime = new Date().getTime();
           if (!repMode) {
             if (!this.recordAudio) {
               this.recordingLength += this.bufferSize;
@@ -665,7 +642,7 @@
             }, [audioReadyChannel.port2]);
 
             workerAudioRec.postMessage({ cmd: 'audioWorklet', msg: false });
-            workerAudioRec.onmessage = function (e) {
+            workerAudioRec.onmessage = (e) => {
               switch (e.data.cmd) {
                 case 'noAudioWorklet':
                   virtualclass.media.audio.queueWithFalback(e.data.msg.data, e.data.msg.uid);
@@ -682,7 +659,7 @@
         },
 
         initPlay() {
-          if (!this.addingWorkletPending){
+          if (!this.addingWorkletPending) {
             console.log('audio init worklet suman b');
             if (typeof workletAudioRec !== 'undefined') {
               console.log('audio worklet disconnect');
@@ -700,7 +677,7 @@
               cthis.audio.Html5Audio.MediaStreamDest = cthis.audio.Html5Audio.audioContext.createMediaStreamDestination();
               workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
   
-              virtualclass.gObj.workletAudioRec = workletAudioRec
+              virtualclass.gObj.workletAudioRec = workletAudioRec;
               if (virtualclass.system.mybrowser.name === 'Chrome') {
                 // console.log('==== Chrome after change');
                 cthis.audio.bug_687574_callLocalPeers();
@@ -788,7 +765,7 @@
 
             virtualclass.media.audioPlayerNode = this.Html5Audio.audioContext.createScriptProcessor(4096, 1, 1);
             snNodePak = 0;
-            virtualclass.media.audioPlayerNode.onaudioprocess = function (event) {
+            virtualclass.media.audioPlayerNode.onaudioprocess = (event) => {
               const output = event.outputBuffer.getChannelData(0);
               const newAud = that.getMergedAudio();
               if (newAud !== null && newAud !== undefined) {
@@ -831,7 +808,7 @@
           // console.log('AUDIO' + allAudioArr[158].length);
           allAudioSend = [];
           audioLen = 0;
-          for (luid in audioToBePlay) {
+          for (letluid in audioToBePlay) {
             const temp = this.getAudioChunks(luid);
             if (temp != null) {
               audioLen++;
@@ -889,7 +866,7 @@
         actualManiPulateStream() {
           // console.log('Manipulate stream');
           this.triggermaniPulateStream = true;
-          const cthis = virtualclass.media;
+          cthis = virtualclass.media;
           // TODO remove setTimeout
           setTimeout(
             () => {
@@ -925,7 +902,7 @@
 
               workletAudioSend = new AudioWorkletNode(cthis.audio.Html5Audio.audioContext, 'worklet-audio-send');
 
-              workletAudioSend.onprocessorerror = function (e) {
+              workletAudioSend.onprocessorerror = (e) => {
                 console.log('this is on process error');
                 cthis.audio.notifiyMuteAudio();
                 cthis.audio.isProcessError = true;
@@ -1067,6 +1044,7 @@
                 workletAudioRec.disconnect();
                 workletAudioRec.connect(cthis.audio.Html5Audio.MediaStreamDest);
               } catch (e) {
+                console.log('Audio error ', e);
               }
             } else if (event.currentTarget.connectionState === 'disconnected') {
               // console.log('PEER disconnected');
@@ -1079,6 +1057,7 @@
                 workletAudioRec.connect(cthis.audio.Html5Audio.audioContext.destination);
                 // console.log('PEER connected normal audio api');
               } catch (e) {
+                console.log('Audio error ', e);
               }
               cthis.audio.bug_687574_callLocalPeers();
             }
@@ -1153,6 +1132,7 @@
           }
         },
       },
+
       /**
        * video property contains all the properties and methods necessary for the manipulation
        * of the video
@@ -1170,7 +1150,7 @@
         init() {
           this.videoCont = document.getElementById('allVideosCont');
           if (this.videoCont != null) {
-            this.videoCont.style.maxHeight = `${this.maxHeight}px`;
+            this.videoCont.style.maxHeight = `${this.maxHeight}px`; // TODO, this should be removed from here
           }
         },
         // Calulates dimensions of the video to be displayed.
@@ -1229,15 +1209,7 @@
          */
         // TODO function defined in function they can be separately defined
         sendInBinary(sendimage) {
-          const user = {
-            name: virtualclass.gObj.uName,
-            id: virtualclass.gObj.uid,
-          };
-          if (io.webSocketConnected()) {
-            //  console.log('====> video by image ');
-            // virtualclass.vutil.beforeSend({ videoByImage: user, cf: 'videoByImage' }, null, true);
-            ioAdapter.sendBinary(sendimage);
-          }
+          if (io.webSocketConnected()) ioAdapter.sendBinary(sendimage);
         },
 
         send() {
@@ -1245,7 +1217,6 @@
             clearInterval(virtualclass.media.smallVid);
           }
           const cvideo = this;
-          let frame;
           let sendimage;
           let vidType;
           randomTime = Math.floor(Math.random() * (8000 - 3000 + 1) + 3000); // Random number between 3000 & 8000
@@ -1253,8 +1224,6 @@
           const that = this;
 
           function sendSmallVideo() {
-            const resA = 1;
-            const resB = 1;
             cvideo.tempVidCont.clearRect(0, 0, cvideo.tempVid.width, cvideo.tempVid.height);
             cvideo.tempVidCont.drawImage(cvideo.myVideo, 0, 0, cvideo.width, cvideo.height);
 
@@ -1313,15 +1282,6 @@
           }
 
           virtualclass.media.smallVid = setInterval(sendSmallVideo, randomTime);
-          // Breaking user id into bytes
-          function breakintobytes2(val, l) {
-            let numstring = val.toString();
-            for (let i = numstring.length; i < l; i++) {
-              numstring = `0${numstring}`;
-            }
-            const parts = numstring.match(/[\S]{1,2}/g) || [];
-            return parts;
-          }
         },
 
         /**
@@ -1339,7 +1299,7 @@
          * @param  msg video message received
 
          */
-        playWithoutSlice(uid, msg, vtype) {
+        playWithoutSlice(uid) {
           //  console.log('uid ' + uid);
           this.remoteVid = document.getElementById(`video${uid}`);
           // TODO remove validation
@@ -1357,7 +1317,7 @@
             if (virtualclass.system.webpSupport || (imgType === 'jpeg')) {
               const img = new Image();
               const that = this;
-              img.onload = function () {
+              img.onload = () => {
                 that.remoteVidCont.drawImage(img, d.x, d.y);
               };
               img.src = imgData;
@@ -1386,14 +1346,12 @@
                 videoSubWrapper.className = 'videoSubWrapper';
                 videoSubWrapper.setAttribute('data-uname', +num);
                 videoWrapper.appendChild(videoSubWrapper);
-                const prvContHeight = videoCont.offsetHeight;
                 const video = document.createElement('video');
                 video.className = 'userVideo';
                 video.muted = 'muted';
                 video.src = 'http://html5demos.com/assets/dizzy.mp4';
                 videoSubWrapper.appendChild(video);
                 videoCont.appendChild(videoWrapper);
-                const newContHeight = videoCont.offsetHeight;
                 if (videoCont.offsetHeight >= maxHeight) {
                   if (videoCont.style.overflowY != null && videoCont.style.overflowY !== 'scroll') {
                     videoCont.style.overflowY = 'scroll';
@@ -1494,16 +1452,16 @@
             // webcam = true;
           }
         }
-
+        let audioConstraint;
         if (virtualclass.system.mediaDevices.hasMicrophone) {
-          var audioConstraint = {
+          audioConstraint = {
             echoCancellation: true,
             autoGainControl: true,
             channelCount: 1,
             noiseSuppression: true,
           };
         } else {
-          var audioConstraint = false;
+          audioConstraint = false;
         }
 
 
@@ -1522,8 +1480,6 @@
        * it  inalizes the video
        */
       /* TODO @param vbool :no use of parameter vbool */
-
-
       async init() {
         // console.log('Video second, normal video');
         cthis = this; // TODO there should be done work for cthis
@@ -1533,16 +1489,9 @@
           delete virtualclass.gesture.classJoin;
         }
 
-        let webcam; let
-          session;
-        [webcam, session] = this.sessionConstraints();
+        const [webcam, session] = this.sessionConstraints();
 
-        cthis.video.init();
-        // cthis.audio.Html5Audio = {audioContext: new (window.AudioContext || window.webkitAudioContext)()};
-        // cthis.audio.resampler = new Resampler(cthis.audio.Html5Audio.audioContext.sampleRate, 8000, 1, 4096);
-        // const that = this;
-        // Default we disable audio and video
-
+        this.video.init();
         virtualclass.user.control.audioDisable();
         virtualclass.user.control.videoDisable();
 
@@ -1569,23 +1518,12 @@
             this.handleUserMediaError(e);
             this.audio.notifiyMuteAudio();
           }
-          if (stream !== null) {
-            this.handleUserMedia(stream);
-          }
-        }
-
-
-        if (virtualclass.system.wbRtc.peerCon) { // TODO this should be deleted
-          if (typeof localStorage.wbrtcMsg === 'undefined') {
-            virtualclass.view.multiMediaMsg('WebRtc');
-            localStorage.wbrtcMsg = true;
-          }
+          if (stream !== null) this.handleUserMedia(stream);
         }
 
         if (webcam === false) {
           virtualclass.user.control.videoDisable();
           virtualclass.vutil.addClass('virtualclassCont', 'nowebcam');
-          // virtualclass.videoHost.UI.hideVideo();
         }
       },
 
@@ -1622,7 +1560,7 @@
 
         const mediaStreamTrack = stream.getVideoTracks()[0];
         if (typeof mediaStreamTrack !== 'undefined') {
-          mediaStreamTrack.onended = function () { // for Chrome.
+          mediaStreamTrack.onended = () => { // for Chrome.
             if (roles.hasControls()) {
               virtualclass.videoHost.clearTeacherVideoTime();
               virtualclass.system.mediaDevices.webcamErr.push('webcambusy');
@@ -1711,7 +1649,7 @@
        * and sends the video
        * @param string userid
        */
-      innerHandleUserMedia(userid) {
+      innerHandleUserMedia() {
         if (typeof cthis !== 'undefined') {
           const stream = cthis.video.tempStream;
 
@@ -1727,7 +1665,7 @@
               virtualclass.adpt.attachMediaStream(cthis.video.myVideo, stream);
               cthis.video.myVideo.muted = true;
               cthis.stream = cthis.video.tempStream;
-              cthis.video.myVideo.onloadedmetadata = function () {
+              cthis.video.myVideo.onloadedmetadata = () => {
                 cthis.video.startToStream();
                 // virtualclass.precheck.webcam.createVideo();
               };
@@ -1743,10 +1681,6 @@
        *
        */
       updateVideoContHeight() {
-        // console.log('Updating User');
-        const elem = document.getElementById('virtualclassCont');
-        // var offset = vcan.utility.getElementOffset(elem);
-        const offset = virtualclass.vutil.getElementOffset(elem);
         const mh = virtualclass.chat.boxHeight;
 
         const chatDiv = document.getElementById('chat_div');
@@ -1863,6 +1797,6 @@
         );
       },
     };
-  };
-  window.media = media;
-}(window));
+  }
+  return Media;
+}

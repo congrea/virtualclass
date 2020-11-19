@@ -808,7 +808,7 @@ function MediaWrapper(window) {
           // console.log('AUDIO' + allAudioArr[158].length);
           allAudioSend = [];
           audioLen = 0;
-          for (letluid in audioToBePlay) {
+          for (let luid in audioToBePlay) {
             const temp = this.getAudioChunks(luid);
             if (temp != null) {
               audioLen++;

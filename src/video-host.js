@@ -421,11 +421,10 @@ var videoHost = {
    * @param d expects destination x and y
    */
   drawReceivedImage(imgData, imgType, d) {
-    if (typeof vid0eoPartCont === 'undefined') {
+    if (!this.videoPartCont) {
       // canvas2 = document.getElementById('mycanvas2');
       this.videoPartCan = document.getElementById('videoParticipate');
       this.videoPartCont = this.videoPartCan.getContext('2d');
-      videoPartCont = true;
     }
 
     // 371 audio latency of buffered audio

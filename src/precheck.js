@@ -264,8 +264,7 @@ const preCheck = {
         virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .next`), this.curr);
       });
 
-      const mediaDetails = virtualclass.media.sessionConstraints();
-      virtualclass.precheck.session = mediaDetails[1];
+      virtualclass.precheck.session = virtualclass.media.sessionConstraints().session;
 
       if (virtualclass.adpt == null) {
         virtualclass.adpt = new virtualclass.adapter();
@@ -675,27 +674,29 @@ const preCheck = {
     //   virtualclass.media.audio.Html5Audio.audioContext.close();
     // }
 
-    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
-    && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
-    && virtualclass.media.audio.Html5Audio.audioContext != null) {
-      // To handle the cracking sound on the side who performes precheck
-      // Html5Audio.audioContext to generate the sending audio
-      virtualclass.media.audio.Html5Audio.audioContext.close(); 
-    }
+    // if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
+    // && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
+    // && virtualclass.media.audio.Html5Audio.audioContext != null) {
+    //   // To handle the cracking sound on the side who performes precheck
+    //   // Html5Audio.audioContext to generate the sending audio
+    //   virtualclass.media.audio.Html5Audio.audioContext.close(); 
+    // }
 
-    if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
-      delete virtualclass.media.audio.Html5Audio;
-    }
+    // if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
+    //   delete virtualclass.media.audio.Html5Audio;
+    // }
+
+    virtualclass.media.audio.closeContext();
 
     // console.log('Fetching media stream');
     const videoAction = this.videoAction ? 'on' : 'off';
-    if (!notRequiredStream) await virtualclass.media.init();
+    if (!notRequiredStream) await virtualclass.gesture.triggerAttachHandler(); // todo, remove await
     virtualclass.vutil.videoHandler(videoAction, 'notSendStatus');
     virtualclass.media.audio.initAudiocontext();
     virtualclass.precheck.speaker.playTestAudio = false;
     virtualclass.media.audio.studentNotSpeak();
     virtualclass.precheck.donePrecheck = false;
-    
+  
     if (virtualclass.media.detectAudioWorklet()) {
       virtualclass.media.audio.initPlay(); // ready worklet for playing audio 
     } else {

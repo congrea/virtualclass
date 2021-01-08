@@ -384,6 +384,7 @@
         elem.classList.remove(className);
       }
     },
+
     breakIntoBytes(val, l) {
       let numstring = val.toString();
       for (let i = numstring.length; i < l; i++) {
@@ -1612,14 +1613,11 @@
 
     videoController() {
       const ctr = document.querySelector('.congrea .videoSwitchCont');
-      if (ctr) {
-        ctr.addEventListener('click', () => {
-          virtualclass.vutil.videoHandler((virtualclass.vutil.selfVideoStatus() === 'off') ? 'on' : 'off');
-        });
-      }
+      if (ctr) ctr.addEventListener('click', () => virtualclass.media.video.handleVideoControl());
     },
 
     videoHandler(action, notSend) {
+      console.log('Handle video ', action);
       let video;
       let tooltip;
       const sw = document.querySelector('.congrea .videoSwitchCont #videoSwitch');
@@ -1661,7 +1659,7 @@
           // TODO remove setTimeout
           setTimeout(
             () => {
-              mysmallVideo.srcObject = virtualclass.media.stream;
+              mysmallVideo.srcObject = virtualclass.media.stream; // TODO, why not cthis.video.tempStream
             }, 100,
           );
         }

@@ -87,4 +87,12 @@ const gesture = {
       joinClass.style.display = 'none';
     }
   },
+
+  triggerAttachHandler() {
+    if (virtualclass.gesture.classJoin) { // todo, this shouldn't be here
+      this.attachHandler();
+      delete this.classJoin;
+    }
+  },
+
 };

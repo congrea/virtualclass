@@ -68,6 +68,8 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/system.js"></script>
 
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/webrtc-adapter.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media-audio.js"></script>
+<script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media-video.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/media.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/pptshare.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/receive-messages-response.js"></script>
@@ -167,4 +169,3 @@
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/live-stream.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/index.js"></script>
 <script type="text/javascript" src="<?php echo $whiteboardpath;?>src/installPrompt.js"></script>
-

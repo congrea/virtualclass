@@ -26,7 +26,7 @@ const workletAudioSendBlob = URL.createObjectURL(new Blob(['(', function () {
 
     /**
      * Once the GetUsermedia stream is connected to the Audio Context,
-     * the following method is triggered continuouslyd
+     * the following method is triggered continuously
      */
     process(inputs, outputs) {
       const input = inputs[0][0];

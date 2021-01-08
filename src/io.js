@@ -538,14 +538,9 @@ var ioInit = {
         }, 5000);
         break;
       case 'initAudioWorklet':
-        if (Object.prototype.hasOwnProperty.call(virtualclass.gObj, 'isAudioContextReady') && !virtualclass.gObj.audioRecWorkerReady) {
-          if (virtualclass.media.detectAudioWorklet()) {
-            virtualclass.media.audio.initPlay();
-          } else {
-            virtualclass.media.audio.initPlayWithFallback();
-          }
+        if (virtualclass.media.audio.audioContextReady && !virtualclass.gObj.audioRecWorkerReady) {
+          virtualclass.media.detectAudioWorklet() ? virtualclass.media.audio.initPlay() : virtualclass.media.audio.initPlayWithFallback();
         }
-
         break;
 
       case 'stBinary': // storage binary

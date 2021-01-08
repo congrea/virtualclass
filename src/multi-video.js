@@ -76,7 +76,7 @@
     start() {
       // console.log('Video First, multivideo');
 
-      virtualclass.multiVideo.localStream = virtualclass.media.video.tempStream;
+      virtualclass.multiVideo.localStream = virtualclass.media.stream;
 
       const _localStream = virtualclass.multiVideo.localStream;
 

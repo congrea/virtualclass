@@ -7,8 +7,6 @@
 
 
 const BASE64_MARKER = ';base64,';
-let videoPartCont; let
-  sampleRate;
 var videoHost = {
   gObj: {},
   setDefaultValue(speed) {
@@ -95,6 +93,7 @@ var videoHost = {
   renderSelfVideo(stream) {
     if (typeof virtualclass.media.tempStream === 'undefined') {
       // console.log('Media attached stream');
+      console.log('Render self video');
       this.getMediaStream(stream);
     }
   },
@@ -226,7 +225,7 @@ var videoHost = {
       }
       cthis.video.myVideo = chatContainerEvent.elementFromShadowDom(`#video${virtualclass.gObj.uid}`);
       cthis.video.myVideo.muted = true;
-      virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.video.tempStream);
+      virtualclass.adpt.attachMediaStream(cthis.video.myVideo, cthis.stream);
     }
   },
 
@@ -334,6 +333,7 @@ var videoHost = {
     
     
     virtualclass.adpt.attachMediaStream(this.videoHostSrc, stream);
+    console.log("====> ADD media stream final");
     const that = this;
     // TODO remove setTimeout
     setTimeout(
@@ -432,11 +432,12 @@ var videoHost = {
     // for sync the audio and video
     const that = this;
 
-    if (typeof virtualclass.media.audio.Html5Audio !== 'undefined') {
-      sampleRate = virtualclass.media.audio.Html5Audio.audioContext.sampleRate;
-    } else if (typeof sampleRate === 'undefined') {
-      sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
-    }
+    // if (typeof virtualclass.media.audio.Html5Audio !== 'undefined') {
+    //   sampleRate = virtualclass.media.audio.Html5Audio.audioContext.sampleRate;
+    // } else if (typeof sampleRate === 'undefined') {
+    //   sampleRate = new (window.AudioContext || window.webkitAudioContext)().sampleRate;
+    // }
+
     if (virtualclass.gObj.isReadyForVideo) {
       if (document.querySelector('#virtualclassCont.congrea #videoHostContainer.hide')) {
         virtualclass.videoHost.UI.displayTeacherVideo();

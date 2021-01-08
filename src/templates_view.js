@@ -297,7 +297,7 @@ this["JST"]["dest_temp/templates/audioWidget.hbs"] = Handlebars.template({"compi
     + alias4(((helper = (helper = helpers.meetingMode || (depth0 != null ? depth0.meetingMode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"meetingMode","hash":{},"data":data}) : helper)))
     + "\" name=\"speakerPressonceAnch\"><span id=\"speakerPressingbtnIcon\" class=\"audioIcon silenceDetect cgIcon\" data-silence-detect=\"stop\"></span></a></li><li class=\"videoSwitchCont congtooltip\" data-title=\""
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"videooff",{"name":"getString","hash":{},"data":data}))
-    + "\" id=\"congCtrBar\"><a id=\"rightCtlr\"><span id=\"videoSwitch\" data-action=\"disable\" class=\"video on\"></span></a></li></ul></div>";
+    + "\" id=\"congCtrBar\"><a id=\"rightCtlr\"><span id=\"videoSwitch\" data-action=\"disable\" class=\"video off\"></span></a></li></ul></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/chat/chatbox.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -1495,7 +1495,7 @@ this["JST"]["dest_temp/templates/teacherVideo.hbs"] = Handlebars.template({"1":f
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div id=\"videoHostContainer\"> "
+  return "<div id=\"videoHostContainer\" class=\"hide\"> "
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.hasControl : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + " <div class=\"videoInterrupt\"> Teacher video is interrupted</div></div>";
 },"useData":true});
@@ -1571,20 +1571,6 @@ this["JST"]["dest_temp/templates/videoupload/linkvideo.hbs"] = Handlebars.templa
     + "\"><a class=\"deleteanch\">"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
     + "</a></div></div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/videoupload/livestream.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " ";
-},"3":function(container,depth0,helpers,partials,data) {
-    return " <p id=\"messageLayoutVideo\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Vwllbshrshortly",{"name":"getString","hash":{},"data":data}))
-    + "</p> ";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div id=\"virtualclassVideo\" class=\"bootstrap virtualclass\" style=\"display: block;\"> "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + " <div id=\"videoPlayerCont\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

@@ -10,6 +10,7 @@ class MediaVideo {
     this.enable = false;
     this.randomTime = 0;
     this.vidId = null;
+    virtualclass.settings.studentvideo(virtualclass.settings.info.studentvideo)
   }
 
   // maxHeight: 250,

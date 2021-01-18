@@ -734,14 +734,16 @@
               if (typeof notActive === 'undefined') {
                 studentSpeaker.className = 'active';
               }
-              if (virtualclass.settings.specificUser === true && roles.isStudent()) {
-                const tag = document.getElementById('speakerPressOnce');
-                const anchor = tag.getElementsByClassName('congtooltip')[0];
-                virtualclass.media.audio.studentSpeak();
-                tag.setAttribute('data-audio-playing', 'true');
-                anchor.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
-                tag.className = 'audioTool active';
-              }
+
+              // if (virtualclass.settings.specificUser === true && roles.isStudent()) {
+              //   const tag = document.getElementById('speakerPressOnce');
+              //   const anchor = tag.getElementsByClassName('congtooltip')[0];
+              //   virtualclass.media.audio.studentSpeak();
+              //   tag.setAttribute('data-audio-playing', 'true');
+              //   anchor.setAttribute('data-title', virtualclass.lang.getString('audioEnable'));
+              //   tag.className = 'audioTool active';
+              // }
+
               studentSpeaker.style.opacity = '1';
               studentSpeaker.style.pointerEvents = 'visible';
             }

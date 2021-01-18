@@ -28,6 +28,9 @@ class MediaAudio {
     this.allAudioArr = {};
     this.repMode = null;
     this.attachFunctionsToAudioWidget();
+    
+    virtualclass.settings.studentaudio(virtualclass.settings.info.studentaudio)
+    
   }
 
   init(stream) {
@@ -61,6 +64,7 @@ class MediaAudio {
     };
     // this.attachFunctionsToAudioWidget(); // to attach functions to audio widget
     this.attachAudioStopHandler(stream);
+    
   }
 
   convertFloat32ToInt16(buffer) {

@@ -25,6 +25,8 @@
     addContext: 'Add Bookmark',
     answer: 'Answers',
     action: 'Actions',
+    askformicrophone: 'Allow microphone in brower settings.',
+    askforwebcam: 'Allow webcam in brower settings.',
     audioTest: 'Your voice will be recorded and played back to you. \n Press Ok and speak something for few seconds.',
     Back: 'Back',
     vote: 'Vote',

@@ -383,26 +383,31 @@ const preCheck = {
     graphProcessor: null,
     graph: null,
     async perform() {
-      console.log('current status mic ');
-      const audioSettigns = virtualclass.media.sessionConstraints().session;
-      audioSettigns.video = false;
-      await virtualclass.precheck.startMedia(audioSettigns);
-      micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
-
       let preCheck = '#preCheckcontainer .precheck';
-
-      // virtualclass.precheck.updateProgressBar(this.curr);
-      virtualclass.precheck.display(`${preCheck}.${this.curr}`);
-      this.visualize();
-
-      if (document.querySelector('#micTest') == null) {
-        const micLable = document.createElement('div');
+      console.log('current status mic ');
+      let micLable = document.querySelector('#micTest');
+      if (!micLable) {
+        micLable = document.createElement('div');
         micLable.id = 'micTest';
         // micLable.innerHTML = virtualclass.lang.getString('mictesting');
 
         const selectorId = `${preCheck}.${this.curr}`;
         document.querySelector(`${selectorId} .result`).appendChild(micLable);
       }
+
+      micLable.innerHTML = virtualclass.lang.getString('askformicrophone')
+      virtualclass.precheck.display(`${preCheck}.${this.curr}`);
+      
+      const audioSettigns = virtualclass.media.sessionConstraints().session;
+      audioSettigns.video = false;
+      await virtualclass.precheck.startMedia(audioSettigns);
+      micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
+
+      // virtualclass.precheck.updateProgressBar(this.curr);
+      // virtualclass.precheck.display(`${preCheck}.${this.curr}`);
+      this.visualize();
+
+     
 
       if (virtualclass.system.mybrowser.name === 'safari' || virtualclass.system.mybrowser.name === 'iOS') {
         // Safari 11 or newer automatically suspends new AudioContext's that aren't
@@ -532,7 +537,7 @@ const preCheck = {
       videoSettings.audio = false;
       console.log('Start media 1 perform');
       const selectorId = `#preCheckcontainer .precheck.${this.curr}`;
-      this.displayMessage(selectorId, '', 'Loading...');
+      this.displayMessage(selectorId, '', virtualclass.lang.getString('askforwebcam'));
       virtualclass.precheck.display(selectorId);
       const webcamTempVideoCon = document.querySelector('#webcamTempVideoCon');
       if (webcamTempVideoCon) webcamTempVideoCon.style.display = 'none';

@@ -118,8 +118,11 @@ class MediaVideo {
       }
 
       sendimage = virtualclass.videoHost.convertDataURIToBinary(sendimage);
-      if (!virtualclass.videoHost.gObj.stdStopSmallVid && (!roles.hasControls()
+      // if (!virtualclass.videoHost.gObj.stdStopSmallVid && (!roles.hasControls()
+      //   || (roles.hasControls()) && virtualclass.videoHost.gObj.videoSwitch)) {
+      if (virtualclass.videoHost.gObj.studentSmallVideo && (!roles.hasControls()
         || (roles.hasControls()) && virtualclass.videoHost.gObj.videoSwitch)) {
+        // console.log("Send small video")
         const uid = virtualclass.vutil.breakintobytes(virtualclass.gObj.uid, 8);
         const scode = new Uint8ClampedArray([11, uid[0], uid[1], uid[2], uid[3], vidType]);// First parameter represents  the protocol rest for user id
         const sendmsg = new Uint8ClampedArray(sendimage.length + scode.length);

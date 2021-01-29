@@ -23,9 +23,11 @@ var videoHost = {
     this.sl = 0;
     this.width = width;
     this.height = height;
-    this.gObj.videoSwitch = 1;// nirmala
+    this.gObj.videoSwitch = 0;// nirmala
     // console.log('videoSwitch 1');
-    this.gObj.stdStopSmallVid = false;
+    this.gObj.stdStopSmallVid = true;
+    this.gObj.studentSmallVideo = false;
+    console.log('small video setting')
     this.domReady = false;
     this.allStdVideoOff = false;
     let swVideo;
@@ -146,10 +148,11 @@ var videoHost = {
 
   stdVideoCtrlMsg(data) {
     const { userid } = data.fromUser;
+    console.log('set user icon ', data.message.stdVideoCtr.videoSwitch)
     if (data.message.stdVideoCtr.videoSwitch) {
-      this.setUserIcon(userid);
-    } else {
       this.removeUserIcon(userid);
+    } else {
+      this.setUserIcon(userid);
     }
   },
 
@@ -286,9 +289,10 @@ var videoHost = {
     }
     if (!roles.hasControls()) {
       if (typeof stdVideoSwitch !== 'undefined' && stdVideoSwitch) {
-        virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
-
-        if (stdVideoSwitch) {
+        // virtualclass.videoHost.gObj.stdStopSmallVid = stdVideoSwitch;
+        virtualclass.videoHost.gObj.studentSmallVideo = stdVideoSwitch;
+        // console.log('student vidoe action ', virtualclass.videoHost.gObj.stdStopSmallVid)
+        if (!stdVideoSwitch) {
           virtualclass.videoHost.toggleStdVideoIcon('disable');
           virtualclass.multiVideo.setVideoStatus(false);
         } else {
@@ -549,7 +553,7 @@ var videoHost = {
       const btn = document.createElement('button');
       joinSession.parentNode.appendChild(btn);
       joinSession.parentNode.removeChild(joinSession);
-      btn.classList.add('precheckComplete', 'btn', 'btn-default');
+      btn.classList.add('precheckComplete', 'btn', 'btn-default', 'joinButton');
       btn.innerHTML = virtualclass.lang.getString('prechkcmplt');
     }
 

@@ -316,19 +316,21 @@ function memberUpdate(e, addType) {
     if (userVid != null) {
       userVid.play();
     }
+    if (virtualclass.gObj.delayVid === 'display') {
+      // Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause()
+      // By delaying 200 miliseconds we are ensuring that above error is not coming
+      // TODO remove setTimeout
+      setTimeout(
+        () => {
+          if (virtualclass.jId == virtualclass.gObj.uid) {
+            console.log('set video icon ', virtualclass.jId)
+            virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
+          }
+        }, 200,
+      );
+    }
   }
 
-
-  if (virtualclass.gObj.delayVid === 'display') {
-    // Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause()
-    // By delaying 200 miliseconds we are ensuring that above error is not coming
-    // TODO remove setTimeout
-    setTimeout(
-      () => {
-        virtualclass.videoHost.setUserIcon(virtualclass.gObj.uid);
-      }, 200,
-    );
-  }
   virtualclass.gObj.delayVid = '';
 }
 

@@ -168,6 +168,7 @@ Network.prototype.netWorkElementIsReady = function () {
     );
   } else {
     networkStatusContainer.classList.add('connecting-room');
+    console.log('room connecting')
     if (!virtualclass.isPlayMode) virtualclassContConatiner.classList.add('connecting');
     clearTimeout(virtualclass.gObj.connectingRoom);
   }

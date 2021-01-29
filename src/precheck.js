@@ -13,10 +13,13 @@ const preCheck = {
       modal.className = 'modal in';
     }
 
+    // videoAction = false, video off
     if (roles.hasControls()) {
       this.videoAction = virtualclass.videoHost.gObj.videoSwitch;
-    } else if (Object.prototype.hasOwnProperty.call(virtualclass.videoHost.gObj, 'stdStopSmallVid')) {
-      this.videoAction = !(virtualclass.videoHost.gObj.stdStopSmallVid); // false means video off
+    // } else if (Object.prototype.hasOwnProperty.call(virtualclass.videoHost.gObj, 'stdStopSmallVid')) {
+    } else if (Object.prototype.hasOwnProperty.call(virtualclass.videoHost.gObj, 'studentSmallVideo')) {
+      // this.videoAction = !(virtualclass.videoHost.gObj.stdStopSmallVid); // false means video off
+      this.videoAction = virtualclass.videoHost.gObj.studentSmallVideo
     } else {
       this.videoAction = false;
     }
@@ -536,6 +539,11 @@ const preCheck = {
       const videoSettings = virtualclass.media.sessionConstraints().session;
       videoSettings.audio = false;
       console.log('Start media 1 perform');
+      if (this.precheckCompleteButton) {
+        this.precheckCompleteButton.classList.remove('enable')
+      } else {
+        this.precheckCompleteButton = document.querySelector('#joinSession button.joinButton')
+      }
       const selectorId = `#preCheckcontainer .precheck.${this.curr}`;
       this.displayMessage(selectorId, '', virtualclass.lang.getString('askforwebcam'));
       virtualclass.precheck.display(selectorId);
@@ -555,6 +563,8 @@ const preCheck = {
         this.createVideo();
       }
       this.initHandler();
+      this.precheckCompleteButton = document.querySelector('#joinSession button.joinButton');
+      this.precheckCompleteButton.classList.add('enable')
     },
 
     initHandler() {

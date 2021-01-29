@@ -150,7 +150,9 @@ Config.prototype.endSession = async function (onlyStoredData) {
   virtualclass.gObj.studentSSstatus.sharing = false;
   delete virtualclass.gObj.whoIsSharing;
   if (virtualclass.videoHost != null) {
-    virtualclass.videoHost.gObj.stdStopSmallVid = false;
+    // virtualclass.videoHost.gObj.stdStopSmallVid = true; // true = video off
+    // virtualclass.videoHost.gObj.stdStopSmallVid = true; // true = video off
+    virtualclass.videoHost.gObj.studentSmallVideo = false;
     virtualclass.videoHost.gObj.allStdVideoOff = false;
   }
 

@@ -1339,7 +1339,7 @@ this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testingwebcam",{"name":"getString","hash":{},"data":data}))
     + " </div><div id=\"webcamTempVideoCon\"><video id=\"webcamTempVideo\"></video></div><div class=\"result\"></div><div id=\"joinSession\" class=\"button clearfix\"><button type=\"button\" class=\"prev btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Prev",{"name":"getString","hash":{},"data":data}))
-    + "</button><button type=\"button\" class=\"next btn btn-default\">"
+    + "</button><button type=\"button\" class=\"next btn btn-default joinButton\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"JoinSession",{"name":"getString","hash":{},"data":data}))
     + "</button></div></div></div></div></div></div></div></div></div>";
 },"useData":true});
@@ -1571,20 +1571,6 @@ this["JST"]["dest_temp/templates/videoupload/linkvideo.hbs"] = Handlebars.templa
     + "\"><a class=\"deleteanch\">"
     + alias4((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"delete",{"name":"getString","hash":{},"data":data}))
     + "</a></div></div></div>";
-},"useData":true});
-
-this["JST"]["dest_temp/templates/videoupload/livestream.hbs"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return " ";
-},"3":function(container,depth0,helpers,partials,data) {
-    return " <p id=\"messageLayoutVideo\">"
-    + container.escapeExpression((helpers.getString || (depth0 && depth0.getString) || helpers.helperMissing).call(depth0 != null ? depth0 : (container.nullContext || {}),"Vwllbshrshortly",{"name":"getString","hash":{},"data":data}))
-    + "</p> ";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1;
-
-  return "<div id=\"virtualclassVideo\" class=\"bootstrap virtualclass\" style=\"display: block;\"> "
-    + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.control : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
-    + " <div id=\"videoPlayerCont\"></div></div>";
 },"useData":true});
 
 this["JST"]["dest_temp/templates/videoupload/popup.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

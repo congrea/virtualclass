@@ -1309,17 +1309,17 @@ this["JST"]["dest_temp/templates/ppt/pptiframe.hbs"] = Handlebars.template({"com
 this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4="function";
 
-  return "<div id=\"virtualclassPreCheck\" class=\"bootstrap\"><div id=\"preCheckcontainer\"><div class=\"container \"><div class=\"modal in\" id=\"myModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div id=\"precheckSkip\" class=\"button clearfix\"><span class=\"skip\"></span></div><div id=\"preCheckProgress\"><ul class=\"progressbar\" id=\"congProgressbar\"><li class=\"screen1 browser active\"></li><li class=\"screen2 bandwidth\"></li><li class=\"screen5 speaker\"></li><li class=\"screen4 mic\"></li><li class=\"screen3 webcam\"></li></ul></div><div id=\"vcBrowserCheck\" class=\"precheck browser\"><div class=\"testName\"> "
+  return "<div id=\"virtualclassPreCheck\" class=\"bootstrap\"><div id=\"preCheckcontainer\"><div class=\"container \"><div class=\"modal in\" id=\"myModal\" role=\"dialog\"><div class=\"modal-dialog modal-lg\"><div class=\"modal-content\"><div class=\"modal-body\"><div id=\"precheckSkip\" class=\"button clearfix\"><span class=\"skip\"></span></div><div id=\"preCheckProgress\"><ul class=\"progressbar\" id=\"congProgressbar\"><li class=\"screen1 browser active\"></li><li class=\"screen2 bandwidth\"></li><li class=\"screen5 speaker\"></li><li class=\"screen4 mic\"></li><li class=\"screen3 webcam\"></li></ul></div><div id=\"vcBrowserCheck\" class=\"precheck browser\" data-currpreq='browser'><div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testingbrowser",{"name":"getString","hash":{},"data":data}))
     + " </div><div class=\"result\"></div><div id=\"browserButtons\" class=\"button clearfix\"><button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))
-    + "</button></div></div><div id=\"vcBandWidthCheck\" class=\"precheck bandwidth\"><div class=\"testName\"> "
+    + "</button></div></div><div id=\"vcBandWidthCheck\" class=\"precheck bandwidth\" data-currpreq='bandwidth'><div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testinginternetspeed",{"name":"getString","hash":{},"data":data}))
     + " </div><div class=\"result\"><img src=\"https://cdn.congrea.net/resources/images/progressbar.gif\"/></div><div id=\"bandwidthButtons\" class=\"button clearfix\"><button type=\"button\" class=\"prev btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Prev",{"name":"getString","hash":{},"data":data}))
     + "</button><button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))
-    + "</button></div></div><div id=\"vcSpeakerCheck\" class=\"precheck speaker\"><div class=\"testName\"> "
+    + "</button></div></div><div id=\"vcSpeakerCheck\" class=\"precheck speaker\" data-currpreq='speaker'><div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testingspeaker",{"name":"getString","hash":{},"data":data}))
     + " </div><audio id=\"vcSpeakerCheckAudio\"><source src=\""
     + alias3(((helper = (helper = helpers.whiteboardPath || (depth0 != null ? depth0.whiteboardPath : depth0)) != null ? helper : alias2),(typeof helper === alias4 ? helper.call(alias1,{"name":"whiteboardPath","hash":{},"data":data}) : helper)))
@@ -1329,17 +1329,17 @@ this["JST"]["dest_temp/templates/precheck.hbs"] = Handlebars.template({"compiler
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Prev",{"name":"getString","hash":{},"data":data}))
     + "</button><button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))
-    + "</button></div></div><div id=\"vcMicCheck\" class=\"precheck mic\"><div class=\"testName\"> "
+    + "</button></div></div><div id=\"vcMicCheck\" class=\"precheck mic\" data-currpreq='mic'><div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testingmichrophone",{"name":"getString","hash":{},"data":data}))
     + "</div><div id=\"audioVisualaizerCont\"><div id=\"audioGraph\"></div></div><div class=\"result\"></div><div id=\"micButtons\" class=\"button clearfix\"><button type=\"button\" class=\"prev btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Prev",{"name":"getString","hash":{},"data":data}))
     + "</button><button type=\"button\" class=\"next btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Next",{"name":"getString","hash":{},"data":data}))
-    + "</button></div></div><div id=\"vcWebCamCheck\" class=\"precheck webcam\"><div class=\"testName\"> "
+    + "</button></div></div><div id=\"vcWebCamCheck\" class=\"precheck webcam\" data-currpreq='webcam'><div class=\"testName\"> "
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"testingwebcam",{"name":"getString","hash":{},"data":data}))
     + " </div><div id=\"webcamTempVideoCon\"><video id=\"webcamTempVideo\"></video></div><div class=\"result\"></div><div id=\"joinSession\" class=\"button clearfix\"><button type=\"button\" class=\"prev btn btn-default\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"Prev",{"name":"getString","hash":{},"data":data}))
-    + "</button><button type=\"button\" class=\"next btn btn-default\">"
+    + "</button><button type=\"button\" class=\"next btn btn-default joinButton\">"
     + alias3((helpers.getString || (depth0 && depth0.getString) || alias2).call(alias1,"JoinSession",{"name":"getString","hash":{},"data":data}))
     + "</button></div></div></div></div></div></div></div></div></div>";
 },"useData":true});

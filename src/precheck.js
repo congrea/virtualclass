@@ -13,10 +13,13 @@ const preCheck = {
       modal.className = 'modal in';
     }
 
+    // videoAction = false, video off
     if (roles.hasControls()) {
       this.videoAction = virtualclass.videoHost.gObj.videoSwitch;
-    } else if (Object.prototype.hasOwnProperty.call(virtualclass.videoHost.gObj, 'stdStopSmallVid')) {
-      this.videoAction = !(virtualclass.videoHost.gObj.stdStopSmallVid); // false means video off
+    // } else if (Object.prototype.hasOwnProperty.call(virtualclass.videoHost.gObj, 'stdStopSmallVid')) {
+    } else if (Object.prototype.hasOwnProperty.call(virtualclass.videoHost.gObj, 'studentSmallVideo')) {
+      // this.videoAction = !(virtualclass.videoHost.gObj.stdStopSmallVid); // false means video off
+      this.videoAction = virtualclass.videoHost.gObj.studentSmallVideo
     } else {
       this.videoAction = false;
     }
@@ -101,11 +104,19 @@ const preCheck = {
   },
 
   startToCheckWholeSytem() {
+    if (!this.attachHandler) {
+      console.log('====> attach handler precheck');
+      const allNextButtons = document.querySelectorAll('#preCheckcontainer .precheck .btn');
+      for (let i=0; i< allNextButtons.length; i++) {
+        allNextButtons[i].addEventListener('click', this.triggerInitHandler.bind(this, allNextButtons[i]));
+      }
+      this.attachHandler = true;
+    }
     this[this.totalTest[0]].perform();
   },
 
   _next(curr, cb) {
-    // console.log('Clicked next');
+    console.log('Clicked next');
 
     if (curr === 'browser') {
       virtualclass.media.audio.initAudiocontext();
@@ -114,59 +125,59 @@ const preCheck = {
     micTesting.makeAudioEmpty();
 
     const test = this[curr].next;
-    virtualclass.precheck.currTest = test;
-    virtualclass.precheck.updateProgressBar(test);
-    if ((!Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone')
-      || Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') && test === 'bandwidth')) {
-      // Only perform the test if it's not already done
-      this[test].perform();
-    } else {
-      virtualclass.precheck.display(`#preCheckcontainer .precheck.${test}`);
-      if (test === 'speaker') {
-        this[test]._play(); // play the audio while next buttong is clicked
-      } else if (test === 'mic') {
-        // this[test].visualize();
-        this[test].audioOperation();
-      } else if (test === 'webcam') {
-        virtualclass.precheck.webcam.initHandler();
-        virtualclass.precheck.webcam.createVideo();
+    if (test) {
+      virtualclass.precheck.currTest = test;
+      virtualclass.precheck.updateProgressBar(test);
+      if ((!Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone')
+        || Object.prototype.hasOwnProperty.call(this[test], 'alreadyDone') && (test === 'bandwidth') ||
+        (test === 'webcam') || (test === 'mic'))) {
+        this[test].perform();
+      } else {
+        virtualclass.precheck.display(`#preCheckcontainer .precheck.${test}`);
+        if (test === 'speaker') {
+          this[test]._play(); // play the audio while next buttong is clicked
+        } else if (test === 'mic') {
+          // this[test].visualize();
+          this[test].audioOperation();
+        } else if (test === 'webcam') {
+          virtualclass.precheck.webcam.initHandler();
+          virtualclass.precheck.webcam.createVideo();
+        }
       }
-    }
 
-    virtualclass.precheck.hide(`#preCheckcontainer .precheck.${curr}`);
-    if (typeof cb !== 'undefined') {
-      cb();
+      virtualclass.precheck.hide(`#preCheckcontainer .precheck.${curr}`);
+      if (typeof cb !== 'undefined') {
+        cb();
+      }
+      this[test].alreadyDone = true;
     }
-    this[test].alreadyDone = true;
-  },
+ },
 
   _prev(curr, cb) {
     virtualclass.precheck.cancelAudioGraph();
     micTesting.makeAudioEmpty();
     const test = this[curr].prev;
-    virtualclass.precheck.hide(`#preCheckcontainer .precheck.${curr}`);
-    virtualclass.precheck.display(`#preCheckcontainer .precheck.${test}`);
-
-    document.querySelector(`#preCheckcontainer  #preCheckProgress .${curr}`).classList.remove('active', 'current');
-    document.querySelector(`#preCheckcontainer  #preCheckProgress .${test}`).classList.add('current');
-
-    if (test === 'speaker') {
-      this[test]._play(); // play the audio while previous button is clicked
-    } else if (test === 'mic') {
-      // virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then(function (stream) {
-      //     virtualclass.precheck.mediaStream = stream;
-      //     micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
-      // });
-
-      // this[test].visualize();
-      micTesting.playAudio = true;
-      this[test].audioOperation();
-    } else if (test === 'webcam') {
-      virtualclass.precheck.webcam.initHandler();
-    }
-
-    if (typeof cb !== 'undefined') {
-      cb();
+    if (test) {
+      virtualclass.precheck.hide(`#preCheckcontainer .precheck.${curr}`);
+      virtualclass.precheck.display(`#preCheckcontainer .precheck.${test}`);
+  
+      document.querySelector(`#preCheckcontainer  #preCheckProgress .${curr}`).classList.remove('active', 'current');
+      document.querySelector(`#preCheckcontainer  #preCheckProgress .${test}`).classList.add('current');
+  
+      if (test === 'speaker') {
+        this[test]._play(); // play the audio while previous button is clicked
+      } else if (test === 'mic') {
+        // micTesting.playAudio = true;
+        // this[test].audioOperation();
+        this[test].perform();
+      } else if (test === 'webcam') {
+        // virtualclass.precheck.webcam.initHandler();
+        this[test].perform();
+      }
+  
+      if (typeof cb !== 'undefined') {
+        cb();
+      }
     }
   },
 
@@ -185,17 +196,6 @@ const preCheck = {
     document.querySelector(selector).appendChild(divErr);
   },
 
-  initHandler(selector, currSec, cb) {
-    // console.log('initHandler next/prev');
-    const nextButton = document.querySelector(selector);
-
-    if (nextButton != null) {
-      const handler = this.triggerInitHandler.bind(nextButton, selector, currSec, cb);
-      nextButton.addEventListener('click', handler);
-      this.handlers.push({ id: selector, handler });
-    }
-  },
-
   removeAllListener() {
     for (let i = 0; i < this.handlers.length; i++) {
       document.querySelector(this.handlers[i].id).removeEventListener('click', this.handlers[i].handler);
@@ -204,17 +204,21 @@ const preCheck = {
   },
 
 
-  triggerInitHandler(selector, currSec, cb) {
-    if (this.classList.contains('next')) {
+  // triggerInitHandler(currSec, cb) {
+  triggerInitHandler(currElement) {
+   
+    const currSec = currElement.closest('.precheck').dataset.currpreq;
+    // const currSec = this[currentPreq].next;
+
+    if (currElement.classList.contains('next')) {
       virtualclass.precheck._next(currSec);
       // console.log('Trigger handle Next');
-    } else if (this.classList.contains('prev')) {
+    } else if (currElement.classList.contains('prev')) {
       virtualclass.precheck._prev(currSec);
       // console.log('Trigger handle previous');
     }
-
-    if (typeof cb !== 'undefined' && cb != null) {
-      cb();
+    if (this[currSec].next === 'mic') {
+      this.speaker.pause();
     }
   },
 
@@ -223,6 +227,7 @@ const preCheck = {
     next: 'bandwidth',
 
     perform() {
+      console.log('current status browser ');
       const preCheck = '#preCheckcontainer .precheck';
 
       virtualclass.precheck.display(`${preCheck}.${this.curr}`);
@@ -235,7 +240,6 @@ const preCheck = {
       if (!virtualclass.system.mybrowser.notSuppport) {
         const msg = virtualclass.lang.getString('congreainchrome');
         virtualclass.precheck.createMessage(msgSelector, msg, 'information');
-        virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .next`), this.curr);
       }
 
     },
@@ -246,6 +250,7 @@ const preCheck = {
     curr: 'bandwidth',
     next: 'speaker',
     perform() {
+      console.log('current status bandwidth ');
       const preCheck = '#preCheckcontainer .precheck';
       virtualclass.precheck.display(`#preCheckcontainer .precheck.${this.curr}`);
 
@@ -260,47 +265,8 @@ const preCheck = {
       this.measureConnectionSpeed((msg) => {
         document.querySelector(msgSelector).innerHTML = '';
         virtualclass.precheck.createMessage(msgSelector, msg, 'information');
-        virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .prev`), this.curr);
-        virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .next`), this.curr);
       });
 
-      virtualclass.precheck.session = virtualclass.media.sessionConstraints().session;
-
-      if (virtualclass.adpt == null) {
-        virtualclass.adpt = new virtualclass.adapter();
-      }
-
-      virtualclass.precheck.cNavigator = virtualclass.adpt.init(navigator);
-      virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(virtualclass.precheck.session).then((stream) => {
-        // console.log('GEtting stream');
-        virtualclass.precheck.mediaStream = stream;
-        const videoStream = virtualclass.precheck.mediaStream.getVideoTracks();
-        if (videoStream.length > 0) {
-          virtualclass.precheck.cameraStreamStatus = 1;
-          if (virtualclass.precheck.currTest === 'webcam') {
-            const tempVideo = document.getElementById('webcamTempVideo');
-            tempVideo.classList.remove('novideo');
-            let resultDiv = document.querySelector('#vcWebCamCheck .result .error');
-            if (resultDiv != null) {
-              resultDiv.classList.remove('error');
-              resultDiv.classList.add('general');
-              resultDiv.innerHTML = virtualclass.lang.getString('webcamerainfo');
-            }
-            virtualclass.precheck.webcam.createVideo();
-          }
-        }
-
-      }).catch(function(e) {
-        virtualclass.media.handleUserMediaError(e);
-        const [msg, wclassName] = virtualclass.precheck.webcam.currentStatus();
-        const selectorId = `#preCheckcontainer .precheck.${virtualclass.precheck.webcam.curr}`;
-        const existingContainer = document.querySelector(`${selectorId} .msg`);
-        if (existingContainer !== null) {
-          existingContainer.parentNode.removeChild(existingContainer);
-        }
-        virtualclass.precheck.webcam.displayMessage(selectorId, wclassName, msg);
-        virtualclass.precheck.cameraStreamStatus = 0;
-      });
     },
 
     bandWidthInWords(speed) {
@@ -344,7 +310,42 @@ const preCheck = {
       const speedKbps = (speedBps / 1024).toFixed(2);
       return Math.round(speedKbps);
     },
+  },
 
+  async startMedia (session) {
+    this.stopMedia();
+    if (virtualclass.adpt == null) virtualclass.adpt = new virtualclass.adapter();
+    if (!virtualclass.precheck.cNavigator) virtualclass.precheck.cNavigator = virtualclass.adpt.init(navigator);
+    try {
+      console.log('===> start media before');
+      virtualclass.precheck.mediaStream = await virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(session);
+      console.log('===> start media after');
+    } catch(e) {
+      virtualclass.media.handleUserMediaError(e);
+      const [msg, wclassName] = virtualclass.precheck.webcam.currentStatus();
+      const selectorId = `#preCheckcontainer .precheck.${virtualclass.precheck.webcam.curr}`;
+      const existingContainer = document.querySelector(`${selectorId} .msg`);
+      if (existingContainer !== null) {
+        existingContainer.parentNode.removeChild(existingContainer);
+      }
+      virtualclass.precheck.webcam.displayMessage(selectorId, wclassName, msg);
+      virtualclass.precheck.cameraStreamStatus = 0;
+    }
+    
+
+    // virtualclass.precheck.cNavigator.mediaDevices.getUserMedia(session).then((stream) => {
+    //   virtualclass.precheck.mediaStream = stream;
+    // }).catch(function(e) {
+    //   virtualclass.media.handleUserMediaError(e);
+    //   const [msg, wclassName] = virtualclass.precheck.webcam.currentStatus();
+    //   const selectorId = `#preCheckcontainer .precheck.${virtualclass.precheck.webcam.curr}`;
+    //   const existingContainer = document.querySelector(`${selectorId} .msg`);
+    //   if (existingContainer !== null) {
+    //     existingContainer.parentNode.removeChild(existingContainer);
+    //   }
+    //   virtualclass.precheck.webcam.displayMessage(selectorId, wclassName, msg);
+    //   virtualclass.precheck.cameraStreamStatus = 0;
+    // });
   },
 
   speaker: {
@@ -363,28 +364,20 @@ const preCheck = {
       const preCheck = '#preCheckcontainer .precheck';
       virtualclass.precheck.display(`#preCheckcontainer .precheck.${this.curr}`);
 
-      const audioSrc = document.querySelector('#vcSpeakerCheckAudio source');
       const testAudio = document.getElementById('vcSpeakerCheckAudio');
       testAudio.loop = true;
       testAudio.play();
-
-      if (!this.playTestAudio) {
-        virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .prev`), this.curr, () => {
-          // stop the audio
-          testAudio.pause();
-          testAudio.currentTime = 0;
-        });
-
-        virtualclass.precheck.initHandler((`${preCheck} #${this.curr}Buttons .next`), this.curr, () => {
-          // stop the audio
-          testAudio.pause();
-          testAudio.currentTime = 0;
-        });
-        this.playTestAudio = true;
-      }
+      this.playTestAudio = true;
       virtualclass.precheck.cancelAudioGraph();
     },
+
+    pause () {
+      const testAudio = document.getElementById('vcSpeakerCheckAudio');
+      testAudio.pause();
+      testAudio.currentTime = 0;
+    }
   },
+
 
   mic: {
     prev: 'speaker',
@@ -392,23 +385,32 @@ const preCheck = {
     next: 'webcam',
     graphProcessor: null,
     graph: null,
-    perform() {
-      micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
-
+    async perform() {
       let preCheck = '#preCheckcontainer .precheck';
-
-      // virtualclass.precheck.updateProgressBar(this.curr);
-      virtualclass.precheck.display(`${preCheck}.${this.curr}`);
-      this.visualize();
-
-      if (document.querySelector('#micTest') == null) {
-        const micLable = document.createElement('div');
+      console.log('current status mic ');
+      let micLable = document.querySelector('#micTest');
+      if (!micLable) {
+        micLable = document.createElement('div');
         micLable.id = 'micTest';
         // micLable.innerHTML = virtualclass.lang.getString('mictesting');
 
         const selectorId = `${preCheck}.${this.curr}`;
         document.querySelector(`${selectorId} .result`).appendChild(micLable);
       }
+
+      micLable.innerHTML = virtualclass.lang.getString('askformicrophone')
+      virtualclass.precheck.display(`${preCheck}.${this.curr}`);
+      
+      const audioSettigns = virtualclass.media.sessionConstraints().session;
+      audioSettigns.video = false;
+      await virtualclass.precheck.startMedia(audioSettigns);
+      micTesting.manipulateStreamFallback(virtualclass.precheck.mediaStream);
+
+      // virtualclass.precheck.updateProgressBar(this.curr);
+      // virtualclass.precheck.display(`${preCheck}.${this.curr}`);
+      this.visualize();
+
+     
 
       if (virtualclass.system.mybrowser.name === 'safari' || virtualclass.system.mybrowser.name === 'iOS') {
         // Safari 11 or newer automatically suspends new AudioContext's that aren't
@@ -481,8 +483,7 @@ const preCheck = {
       // if (this.graph != null && this.graph != undefined) {
       // this.graph.microphone.start()
       // }
-      virtualclass.precheck.initHandler((`#preCheckcontainer .precheck #${this.curr}Buttons .prev`), this.curr);
-      virtualclass.precheck.initHandler((`#preCheckcontainer .precheck #${this.curr}Buttons .next`), this.curr);
+      
     },
 
   },
@@ -534,26 +535,41 @@ const preCheck = {
       document.querySelector(`${appendInto} .result`).appendChild(videoLable);
     },
 
-    perform() {
-      const [msg, wclassName] = this.currentStatus();
-
+    async perform() {
+      const videoSettings = virtualclass.media.sessionConstraints().session;
+      videoSettings.audio = false;
+      console.log('Start media 1 perform');
+      if (this.precheckCompleteButton) {
+        this.precheckCompleteButton.classList.remove('enable')
+      } else {
+        this.precheckCompleteButton = document.querySelector('#joinSession button.joinButton')
+      }
       const selectorId = `#preCheckcontainer .precheck.${this.curr}`;
-      this.displayMessage(selectorId, wclassName, msg);
-
-      // virtualclass.precheck.updateProgressBar(this.curr);
+      this.displayMessage(selectorId, '', virtualclass.lang.getString('askforwebcam'));
       virtualclass.precheck.display(selectorId);
+      const webcamTempVideoCon = document.querySelector('#webcamTempVideoCon');
+      if (webcamTempVideoCon) webcamTempVideoCon.style.display = 'none';
+      await virtualclass.precheck.startMedia(videoSettings);
+     
+      if (virtualclass.precheck.mediaStream) virtualclass.precheck.cameraStreamStatus = 1;
+      const [msg, wclassName] = this.currentStatus();
+      this.displayMessage(selectorId, wclassName, msg);
+      if (webcamTempVideoCon) webcamTempVideoCon.style.display = 'block';
+      // virtualclass.precheck.updateProgressBar(this.curr);
+     
       if (wclassName.indexOf('error') > -1) {
         document.getElementById('webcamTempVideo').className = 'novideo';
       } else {
         this.createVideo();
       }
       this.initHandler();
+      this.precheckCompleteButton = document.querySelector('#joinSession button.joinButton');
+      this.precheckCompleteButton.classList.add('enable')
     },
 
     initHandler() {
       const preCheck = '#preCheckcontainer .precheck';
-      virtualclass.precheck.initHandler((`${preCheck} #joinSession .prev`), this.curr);
-
+      
       const joinSession = document.querySelector('#joinSession .next');
       if (joinSession != null) {
         joinSession.removeEventListener('click', this.joinSession.bind(this));
@@ -645,11 +661,6 @@ const preCheck = {
   },
 
   async afterComplete(notRequiredStream) {
-    if (Object.prototype.hasOwnProperty.call(virtualclass.precheck, 'mediaStream')
-      && virtualclass.precheck.mediaStream != null) {
-      const track = virtualclass.precheck.mediaStream.getTracks()[0]; // if only one media track
-      track.stop();
-    }
     virtualclass.videoHost._resetPrecheck();
     micTesting.destroyAudioNode();
     virtualclass.precheck.removeAllListener();
@@ -664,27 +675,6 @@ const preCheck = {
       virtualclass.media.audioCreatorNode.disconnect(virtualclass.media.audio.Html5Audio.audioContext.destination);
       virtualclass.media.audioCreatorNode = null;
     }
-
-    /** Need for safari for iOS ** */
-    // if ((virtualclass.system.mybrowser.name === 'iOS' || virtualclass.system.mybrowser.name === 'Firefox'
-    //   || virtualclass.system.mybrowser.name === 'Safari')
-    //   && Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
-    //   && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
-    //   && virtualclass.media.audio.Html5Audio.audioContext != null) {
-    //   virtualclass.media.audio.Html5Audio.audioContext.close();
-    // }
-
-    // if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')
-    // && Object.prototype.hasOwnProperty.call(virtualclass.media.audio.Html5Audio, 'audioContext')
-    // && virtualclass.media.audio.Html5Audio.audioContext != null) {
-    //   // To handle the cracking sound on the side who performes precheck
-    //   // Html5Audio.audioContext to generate the sending audio
-    //   virtualclass.media.audio.Html5Audio.audioContext.close(); 
-    // }
-
-    // if (Object.prototype.hasOwnProperty.call(virtualclass.media.audio, 'Html5Audio')) {
-    //   delete virtualclass.media.audio.Html5Audio;
-    // }
 
     virtualclass.media.audio.closeContext();
 
@@ -705,5 +695,14 @@ const preCheck = {
     if (workerAudioSend != null) {
       workerAudioSend.postMessage({ cmd: 'precheck', msg: { precheck: virtualclass.precheck.donePrecheck } });
     }
+    this.stopMedia();
   },
+
+  stopMedia() {
+    if (virtualclass.precheck.mediaStream) {
+      console.log('====> STOP precheck');
+      const tracks = virtualclass.precheck.mediaStream.getTracks(); // if only one media track
+      tracks.forEach((track) => { track.stop(); });
+    }
+  }
 };

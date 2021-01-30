@@ -1,29 +1,22 @@
 const micTesting = {
   audioPlayerNode: false,
   manipulateStreamFallback(stream) {
+    if (virtualclass.media.audioVisual.audioCtx) micTesting.destroyAudioNode();
     this.playAudio = true;
     this.audioToBePlay = [];
     this.allAudioArr = [];
     this.bufferSize = 16384;
     if (stream != null) {
-      if (!Object.prototype.hasOwnProperty.call(virtualclass.media.audioVisual, 'audioCtx')
-        || (Object.prototype.hasOwnProperty.call(virtualclass.media.audioVisual, 'audioCtx')
-        && virtualclass.media.audioVisual.audioCtx == null)) {
-        virtualclass.media.audioVisual.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
+      virtualclass.media.audioVisual.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
       if (virtualclass.system.mediaDevices.hasMicrophone) {
-        if (this.audioCreatorNode == null || this.audioCreatorNode == null
-          || typeof this.audioCreatorNode === 'undefined') {
           // console.log('processor intialize');
-          this.audioInput = virtualclass.media.audioVisual.audioCtx.createMediaStreamSource(stream);
-          this.audioCreatorNode = virtualclass.media.audioVisual.audioCtx.createScriptProcessor(this.bufferSize, 1, 1);
-          this.audioCreatorNode.onaudioprocess = this.recorderProcessFallback.bind(this);
-          this.audioInput.connect(this.audioCreatorNode);
-          this.audioCreatorNode.connect(virtualclass.media.audioVisual.audioCtx.destination);
-        } else {
-          // console.log('No audio ');
-        }
+        this.audioInput = virtualclass.media.audioVisual.audioCtx.createMediaStreamSource(stream);
+        this.audioCreatorNode = virtualclass.media.audioVisual.audioCtx.createScriptProcessor(this.bufferSize, 1, 1);
+        this.audioCreatorNode.onaudioprocess = this.recorderProcessFallback.bind(this);
+        this.audioInput.connect(this.audioCreatorNode);
+        this.audioCreatorNode.connect(virtualclass.media.audioVisual.audioCtx.destination);
+        
       } else {
         // console.log('There is no microphone');
       }

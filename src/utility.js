@@ -1634,7 +1634,8 @@
           virtualclass.videoHost.gObj.videoSwitch = 1;
           // console.log('videoswitch 1');
         } else {
-          virtualclass.videoHost.gObj.stdStopSmallVid = false;
+          // virtualclass.videoHost.gObj.stdStopSmallVid = false;
+          virtualclass.videoHost.gObj.studentSmallVideo = true;
         }
 
         // var hasImg = document.querySelector("#ml"+virtualclass.gObj.uid+" .user-details a span")
@@ -1674,7 +1675,8 @@
           if (roles.hasControls()) {
             virtualclass.videoHost.gObj.videoSwitch = 0;
           } else {
-            virtualclass.videoHost.gObj.stdStopSmallVid = true;
+            // virtualclass.videoHost.gObj.stdStopSmallVid = true;
+            virtualclass.videoHost.gObj.studentSmallVideo = false;
           }
         }
 
@@ -1702,7 +1704,8 @@
 
         if (!roles.hasControls()) {
           ioAdapter.mustSend({
-            stdVideoCtr: { videoSwitch: virtualclass.videoHost.gObj.stdStopSmallVid },
+            // stdVideoCtr: { videoSwitch: virtualclass.videoHost.gObj.stdStopSmallVid },
+            stdVideoCtr: { videoSwitch: virtualclass.videoHost.gObj.studentSmallVideo },
             cf: 'stdVideoCtrl',
           });
         }

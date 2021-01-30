@@ -10,6 +10,14 @@
   font-size: 0.875rem;
 }
 
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap #joinSession .btn.joinButton {
+  pointer-events:none;
+}
+
+#virtualclassCont.congrea #virtualclassPreCheck.bootstrap #joinSession .btn.joinButton.enable {
+  pointer-events:visible;
+} 
+
 #virtualclassCont.congrea #virtualclassPreCheck .testName {
   font-size: 1.25rem;
   text-align: center;

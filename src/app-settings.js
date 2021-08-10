@@ -1,4 +1,5 @@
 (function (window, document) {
+  // commit 2 from dev
   /**
    * This is the main object which has properties and methods
    * Through this properties and methods all the front stuff is happening

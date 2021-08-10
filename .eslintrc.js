@@ -74,6 +74,7 @@ module.exports = {
     LiveStream: 'writable',
     MediaWrapper: 'writable',
   },
+  // commit 1 from master
   parserOptions: {
     ecmaVersion: 2017,
     ecmaFeatures: {
